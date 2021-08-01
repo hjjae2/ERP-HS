@@ -1,10 +1,15 @@
 <template>
-  <v-app>
+  <el-container
+    direction="vertical"
+    style="width: 100%; height: 100%; padding: 0% 1%"
+  >
     <common-header />
-    <common-navigator />
-    <nuxt />
+    <el-container style="height: 80%">
+      <common-navigator />
+      <nuxt />
+    </el-container>
     <common-footer />
-  </v-app>
+  </el-container>
 </template>
 
 <script>
@@ -20,4 +25,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-primary {
+  color: #409eff;
+}
+</style>

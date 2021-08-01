@@ -1,27 +1,24 @@
 <template>
-  <el-row class="tac">
-    <el-col :span="12">
-      <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
-      >
-        <el-menu-item index="1">
-          <i class="el-icon-menu"></i>
-          <span>Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="2">
-          <i class="el-icon-document"></i>
-          <span>Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <i class="el-icon-setting"></i>
-          <span>Navigator Four</span>
-        </el-menu-item>
-      </el-menu>
-    </el-col>
-  </el-row>
+  <el-aside width="200px">
+    <el-menu default-active="1" :router="true">
+      <el-menu-item index="1" route="home">
+        <i class="el-icon-house"></i>
+        <span>홈</span>
+      </el-menu-item>
+      <el-menu-item index="2" route="work">
+        <i class="el-icon-document-copy"></i>
+        <span>작업내역 관리</span>
+      </el-menu-item>
+      <el-menu-item index="3" route="company">
+        <i class="el-icon-school"></i>
+        <span>거래처 관리</span>
+      </el-menu-item>
+      <el-menu-item index="4" route="person">
+        <i class="el-icon-user"></i>
+        <span>작업자/거래인 관리</span>
+      </el-menu-item>
+    </el-menu>
+  </el-aside>
 </template>
 
 <script>
