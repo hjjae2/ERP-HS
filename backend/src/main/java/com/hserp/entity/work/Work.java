@@ -1,14 +1,14 @@
 package com.hserp.entity.work;
 
+import com.hserp.entity.Address;
 import com.hserp.entity.CommonTime;
+import com.hserp.entity.Remark;
 import com.hserp.entity.company.Company;
-import com.hserp.entity.expenditure.Expenditure;
-import com.hserp.entity.payment.Payment;
 import com.hserp.entity.person.Person;
-import com.hserp.entity.tax.Tax;
 import lombok.Getter;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,42 +24,46 @@ public class Work extends CommonTime {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 64, nullable = true)
-    private String address;
+    @Embedded
+    private Address address;
 
     @Column(length = 255, nullable = true)
     private String content;
 
-    @Column(length = 255, nullable = true)
-    private String remark;
+    @Embedded
+    private Remark remark;
 
     @Column(nullable = false)
     private Integer price;
 
-    @Column(nullable = true)
+    @Column(name="work_date", nullable = true)
     private LocalDateTime workDate;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "payment", nullable = true)
-    private Payment payment;
-
-    @OneToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "expenditure")
-    private Expenditure expenditure;
-
-    @OneToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "tax", nullable = true)
-    private Tax tax;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "work_type_id", nullable = false)
+    private WorkType type;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "company", nullable = false)
-    private Company company;
-
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "worker", nullable = false)
+    @JoinColumn(name = "person_id", nullable = false)
     private Person worker;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "type", nullable = false)
-    private WorkType type;
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "work_status_id", nullable = false)
+    private WorkStatus workStatus;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "payment_status_id", nullable = false)
+    private PaymentStatus paymentStatus;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "expenditure_status_id", nullable = false)
+    private ExpenditureStatus expenditureStatus;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "tax_status_id", nullable = false)
+    private TaxStatus taxStatus;
 }

@@ -25,8 +25,8 @@ public class CompanyResponseDto {
         return CompanyResponseDto.builder()
                 .id(company.getId())
                 .name(company.getName())
-                .remark(company.getRemark())
-                .representative(company.getRep().getName())
+                .remark(company.getRemark().getValue())
+                .representative(company.getManager().getName())
                 .createdDate(company.getCreatedDate())
                 .updatedDate(company.getUpdatedDate())
                 .build();

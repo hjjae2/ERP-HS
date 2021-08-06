@@ -24,7 +24,7 @@ public class PersonResponseDto {
     public static PersonResponseDto of(Person person) {
         return PersonResponseDto.builder()
                 .name(person.getName())
-                .remark(person.getRemark())
+                .remark(person.getRemark().getValue())
                 .company(person.getCompany().getName())
                 .createdDate(person.getCreatedDate())
                 .updatedDate(person.getUpdatedDate())

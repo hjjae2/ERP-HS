@@ -1,8 +1,8 @@
 package com.hserp.service.person;
 
-import com.hserp.dto.payment.PaymentRequestDto;
-import com.hserp.dto.payment.PaymentResponseDto;
-import com.hserp.repository.payment.PaymentRepository;
+import com.hserp.dto.person.PersonRequestDto;
+import com.hserp.dto.person.PersonResponseDto;
+import com.hserp.repository.person.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,19 +10,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonService {
 
-    private final PaymentRepository paymentRepository;
+    private final PersonRepository personRepository;
 
-    public Integer create(PaymentRequestDto paymentRequestDto) {
+    public Integer create(PersonRequestDto personRequestDto) {
         // todo
         return 1;
     }
 
-    public PaymentResponseDto read(Integer id) {
+    public PersonResponseDto read(Integer id) {
         // todo
-        return new PaymentResponseDto();
+        return new PersonResponseDto();
     }
 
-    public Boolean update(Integer id, PaymentRequestDto paymentRequestDto) {
+    public Boolean update(Integer id, PersonRequestDto personRequestDto) {
         // todo
         return true;
     }

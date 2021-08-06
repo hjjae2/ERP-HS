@@ -1,4 +1,4 @@
-package com.hserp.entity.payment;
+package com.hserp.entity.work;
 
 import com.hserp.entity.CommonTime;
 import lombok.Getter;

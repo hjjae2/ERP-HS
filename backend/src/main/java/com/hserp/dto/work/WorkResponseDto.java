@@ -1,10 +1,10 @@
 package com.hserp.dto.work;
 
 import com.hserp.dto.company.CompanyResponseDto;
-import com.hserp.dto.expenditure.ExpenditureResponseDto;
-import com.hserp.dto.payment.PaymentResponseDto;
 import com.hserp.dto.person.PersonResponseDto;
-import com.hserp.dto.tax.TaxResponseDto;
+import com.hserp.entity.work.ExpenditureStatus;
+import com.hserp.entity.work.PaymentStatus;
+import com.hserp.entity.work.TaxStatus;
 import com.hserp.entity.work.Work;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +29,9 @@ public class WorkResponseDto {
     private LocalDate workDate;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
-    private PaymentResponseDto payment;
-    private ExpenditureResponseDto expenditure;
-    private TaxResponseDto tax;
+    private String paymentStatus;
+    private String expenditureStatus;
+    private String taxStatus;
     private CompanyResponseDto company;
     private PersonResponseDto worker;
 
@@ -39,16 +39,16 @@ public class WorkResponseDto {
         return WorkResponseDto.builder()
                 .id(work.getId())
                 .price(work.getPrice())
-                .address(work.getAddress())
+                .address(work.getAddress().getValue())
                 .content(work.getContent())
-                .remark(work.getRemark())
+                .remark(work.getRemark().getValue())
                 .workType(work.getType().getName())
                 .workDate(LocalDate.from(work.getWorkDate()))
                 .createdDate(work.getCreatedDate())
                 .updatedDate(work.getUpdatedDate())
-                .payment(PaymentResponseDto.of(work.getPayment()))
-                .expenditure(ExpenditureResponseDto.of(work.getExpenditure()))
-                .tax(TaxResponseDto.of(work.getTax()))
+                .paymentStatus(work.getPaymentStatus().getName())
+                .expenditureStatus(work.getExpenditureStatus().getName())
+                .taxStatus(work.getTaxStatus().getName())
                 .company(CompanyResponseDto.of(work.getCompany()))
                 .worker(PersonResponseDto.of(work.getWorker()))
                 .build();

@@ -1,4 +1,4 @@
-package com.hserp.entity.tax;
+package com.hserp.entity.work;
 
 import com.hserp.entity.CommonTime;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.persistence.Id;
 
 @Getter
 @Entity
-public class TaxIssueStatus extends CommonTime {
+public class TaxStatus extends CommonTime {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
