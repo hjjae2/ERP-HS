@@ -1,9 +1,9 @@
 package com.hserp.entity.work;
 
+import com.hserp.entity.company.Company;
 import com.hserp.entity.Address;
 import com.hserp.entity.CommonTime;
 import com.hserp.entity.Remark;
-import com.hserp.entity.company.Company;
 import com.hserp.entity.person.Person;
 import lombok.Getter;
 

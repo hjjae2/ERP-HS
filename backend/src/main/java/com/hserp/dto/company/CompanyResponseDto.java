@@ -1,34 +1,23 @@
 package com.hserp.dto.company;
 
-import com.hserp.entity.company.Company;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@ToString
 @Getter
 public class CompanyResponseDto {
 
-    private int id;
+    private Integer id;
     private String name;
+    private String phone;
+    private String email;
+    private String address;
     private String remark;
-    private String representative;
+    private String manager;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
-
-    public static CompanyResponseDto of(Company company) {
-        return CompanyResponseDto.builder()
-                .id(company.getId())
-                .name(company.getName())
-                .remark(company.getRemark().getValue())
-                .representative(company.getManager().getName())
-                .createdDate(company.getCreatedDate())
-                .updatedDate(company.getUpdatedDate())
-                .build();
-    }
 }

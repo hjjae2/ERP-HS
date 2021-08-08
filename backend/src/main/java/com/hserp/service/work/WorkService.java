@@ -30,7 +30,7 @@ public class WorkService {
         List<WorkResponseDto> results = new ArrayList<>();
         List<Work> works = workRepository.findAll();
 
-        works.forEach(work -> results.add(WorkResponseDto.of(work)));
+        // works.forEach(work -> results.add(WorkResponseDto.of(work)));
 
         return results;
     }
