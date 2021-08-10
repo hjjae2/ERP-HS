@@ -25,7 +25,6 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Setter
 @Getter
 @Entity
 public class Company extends CommonTime {
@@ -97,8 +96,7 @@ public class Company extends CommonTime {
         }
 
         Company company = (Company) obj;
-        return Objects.equals(id, company.id)
-                && Objects.equals(name, company.name)
+        return Objects.equals(name, company.name)
                 && Objects.equals(phone, company.phone)
                 && Objects.equals(email, company.email)
                 && Objects.equals(address, company.address)
@@ -108,6 +106,6 @@ public class Company extends CommonTime {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, phone, email, address, remark, manager);
+        return Objects.hash(name, phone, email, address, remark, manager);
     }
 }

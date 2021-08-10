@@ -1,11 +1,10 @@
-package com.hserp.person.mapper;
+package com.hserp.mapper.person;
 
 import com.hserp.CommonVariable;
 import com.hserp.entity.company.Company;
 import com.hserp.dto.person.PersonRequestDto;
 import com.hserp.dto.person.PersonResponseDto;
 import com.hserp.entity.person.Person;
-import com.hserp.mapper.person.PersonMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +44,7 @@ class PersonMapperTest {
     @Test
     void personRequestDtoToPerson() {
         // given
-        PersonRequestDto requestDto = new PersonRequestDto(CommonVariable.name, CommonVariable.phone, CommonVariable.email, CommonVariable.address, CommonVariable.remark, CommonVariable.company);
+        PersonRequestDto requestDto = new PersonRequestDto(CommonVariable.getName(), CommonVariable.getPhone().getValue(), CommonVariable.getEmail().getValue(), CommonVariable.getAddress().getValue(), CommonVariable.getRemark().getValue(), CommonVariable.getCompany().getName());
 
         // when
         Person person = PersonMapper.INSTANCE.personRequestDtoToPerson(requestDto);
@@ -58,7 +57,7 @@ class PersonMapperTest {
     @Test
     void personResponseDtoToPerson() {
         // given
-        PersonResponseDto responseDto = new PersonResponseDto(null, CommonVariable.name, CommonVariable.phone, CommonVariable.email, CommonVariable.address, CommonVariable.remark, CommonVariable.company, LocalDateTime.now(), LocalDateTime.now());
+        PersonResponseDto responseDto = new PersonResponseDto(null, CommonVariable.getName(), CommonVariable.getPhone().getValue(), CommonVariable.getEmail().getValue(), CommonVariable.getAddress().getValue(), CommonVariable.getRemark().getValue(), CommonVariable.getCompany().getName(), LocalDateTime.now(), LocalDateTime.now());
 
         // when
         Person person = PersonMapper.INSTANCE.personResponseDtoToPerson(responseDto);

@@ -22,6 +22,7 @@ public class PersonService {
 
     private final PersonRepository personRepository;
 
+    @Transactional
     public Integer create(PersonRequestDto personRequestDto) throws Exception {
         Person person = PersonMapper.INSTANCE.personRequestDtoToPerson(personRequestDto);
 

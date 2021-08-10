@@ -15,27 +15,27 @@ public interface CompanyMapper {
     @Mapping(source = "email.value", target = "email")
     @Mapping(source = "address.value", target = "address")
     @Mapping(source = "remark.value", target = "remark")
-    @Mapping(source = "company.name", target = "company")
+    @Mapping(source = "manager.name", target = "manager")
     CompanyRequestDto companyToCompanyRequestDto(Company company);
 
     @Mapping(source = "phone.value", target = "phone")
     @Mapping(source = "email.value", target = "email")
     @Mapping(source = "address.value", target = "address")
     @Mapping(source = "remark.value", target = "remark")
-    @Mapping(source = "company.name", target = "company")
+    @Mapping(source = "manager.name", target = "manager")
     CompanyResponseDto companyToCompanyResponseDto(Company company);
 
     @Mapping(source = "phone", target = "phone.value")
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "company", target = "company.name")
+    @Mapping(source = "manager", target = "manager.name")
     Company companyRequestDtoToCompany(CompanyRequestDto companyRequestDto);
 
     @Mapping(source = "phone", target = "phone.value")
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "company", target = "company.name")
+    @Mapping(source = "manager", target = "manager.name")
     Company companyResponseDtoToCompany(CompanyResponseDto companyResponseDto);
 }

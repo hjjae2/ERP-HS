@@ -15,27 +15,27 @@ public interface PersonMapper {
     @Mapping(source = "email.value", target = "email")
     @Mapping(source = "address.value", target = "address")
     @Mapping(source = "remark.value", target = "remark")
-    @Mapping(source = "manager.name", target = "manager")
+    @Mapping(source = "company.name", target = "company")
     PersonRequestDto personToPersonRequestDto(Person person);
 
     @Mapping(source = "phone.value", target = "phone")
     @Mapping(source = "email.value", target = "email")
     @Mapping(source = "address.value", target = "address")
     @Mapping(source = "remark.value", target = "remark")
-    @Mapping(source = "manager.name", target = "manager")
+    @Mapping(source = "company.name", target = "company")
     PersonResponseDto personToPersonResponseDto(Person person);
 
     @Mapping(source = "phone", target = "phone.value")
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "manager", target = "manager.name")
+    @Mapping(source = "company", target = "company.name")
     Person personRequestDtoToPerson(PersonRequestDto personRequestDto);
 
     @Mapping(source = "phone", target = "phone.value")
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "manager", target = "manager.name")
+    @Mapping(source = "company", target = "company.name")
     Person personResponseDtoToPerson(PersonResponseDto personResponseDto);
 }

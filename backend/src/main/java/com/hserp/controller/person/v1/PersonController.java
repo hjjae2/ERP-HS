@@ -1,4 +1,4 @@
-package com.hserp.controller.person;
+package com.hserp.controller.person.v1;
 
 import com.hserp.dto.person.PersonRequestDto;
 import com.hserp.dto.person.PersonResponseDto;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/persons")
 @RestController
-public class PersonControllerV1 {
+public class PersonController {
 
     private final PersonService personService;
 

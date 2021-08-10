@@ -1,4 +1,4 @@
-package com.hserp.controller.company;
+package com.hserp.controller.company.v1;
 
 import com.hserp.dto.company.CompanyRequestDto;
 import com.hserp.dto.company.CompanyResponseDto;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/companies")
 @Controller
-public class CompanyControllerV1 {
+public class CompanyController {
 
     private final CompanyService companyService;
 
