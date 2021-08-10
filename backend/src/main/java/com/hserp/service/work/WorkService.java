@@ -4,7 +4,6 @@ import com.hserp.dto.work.WorkRequestDto;
 import com.hserp.dto.work.WorkResponseDto;
 import com.hserp.entity.work.Work;
 import com.hserp.exception.CustomExceptionMessage;
-import com.hserp.mapper.person.PersonMapper;
 import com.hserp.mapper.work.WorkMapper;
 import com.hserp.repository.work.WorkRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
