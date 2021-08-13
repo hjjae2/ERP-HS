@@ -26,6 +26,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 @Getter
 @Entity
 public class Person extends CommonTime {
@@ -79,12 +80,19 @@ public class Person extends CommonTime {
         }
     }
 
+    public void changeCompany(Company newCompany) {
+        if(newCompany != null && !newCompany.equals(this.company)) {
+            this.company = newCompany;
+        }
+    }
+
     public void changeTo(Person newPerson) {
         this.changeName(newPerson.getName());
         this.changePhone(newPerson.getPhone());
         this.changeEmail(newPerson.getEmail());
         this.changeAddress(newPerson.getAddress());
         this.changeRemark(newPerson.getRemark());
+        this.changeCompany(newPerson.getCompany());
     }
 
     @Override

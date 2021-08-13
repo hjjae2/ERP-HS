@@ -5,9 +5,10 @@ import com.hserp.dto.person.PersonResponseDto;
 import com.hserp.entity.person.Person;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface PersonMapper {
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
@@ -29,13 +30,13 @@ public interface PersonMapper {
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "company", target = "company.name")
+    @Mapping(target = "company", ignore = true)
     Person personRequestDtoToPerson(PersonRequestDto personRequestDto);
 
     @Mapping(source = "phone", target = "phone.value")
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "company", target = "company.name")
+    @Mapping(target = "company", ignore = true)
     Person personResponseDtoToPerson(PersonResponseDto personResponseDto);
 }

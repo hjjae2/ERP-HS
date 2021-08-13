@@ -5,9 +5,10 @@ import com.hserp.dto.work.WorkResponseDto;
 import com.hserp.entity.work.Work;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface WorkMapper {
     WorkMapper INSTANCE = Mappers.getMapper(WorkMapper.class);
 

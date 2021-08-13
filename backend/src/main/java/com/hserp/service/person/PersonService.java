@@ -2,10 +2,13 @@ package com.hserp.service.person;
 
 import com.hserp.dto.person.PersonRequestDto;
 import com.hserp.dto.person.PersonResponseDto;
+import com.hserp.entity.company.Company;
 import com.hserp.entity.person.Person;
 import com.hserp.exception.CustomExceptionMessage;
 import com.hserp.mapper.person.PersonMapper;
+import com.hserp.repository.company.CompanyRepository;
 import com.hserp.repository.person.PersonRepository;
+import com.hserp.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -21,13 +24,24 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final CompanyRepository companyRepository;
 
     @Transactional
     public Integer create(PersonRequestDto personRequestDto) throws Exception {
         Person person = PersonMapper.INSTANCE.personRequestDtoToPerson(personRequestDto);
+        Company company = null;
 
         try {
+            if(personRequestDto.getCompany() != null) {
+                company = companyRepository.findByName(personRequestDto.getCompany()).orElseThrow(EntityNotFoundException::new);
+            }
+            person.changeCompany(company);
+
+            System.out.println(person);
+
             return personRepository.save(person).getId();
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(CustomExceptionMessage.DATA_NOT_FOUND_MESSAGE);
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException(CustomExceptionMessage.BAD_REQUEST_MESSAGE);
         } catch (Exception e) {

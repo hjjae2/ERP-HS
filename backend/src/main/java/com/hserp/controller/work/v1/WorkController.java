@@ -1,8 +1,9 @@
 package com.hserp.controller.work.v1;
 
+import com.hserp.annotation.Log4RestController;
 import com.hserp.dto.work.WorkRequestDto;
-import com.hserp.dto.work.WorkResponseDto;
 import com.hserp.service.work.WorkService;
+import com.hserp.vo.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
+@Log4RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/works")
 @RestController
@@ -23,28 +23,28 @@ public class WorkController {
     private final WorkService workService;
 
     @PostMapping()
-    public Integer create(@RequestBody WorkRequestDto workRequestDto) throws Exception {
+    public ApiResponse create(@RequestBody WorkRequestDto workRequestDto) throws Exception {
         Integer workId = workService.create(workRequestDto);
-        return workId;
+        return ApiResponse.success(workId);
     }
 
     @GetMapping("/{work-id}")
-    public WorkResponseDto read(@PathVariable("work-id") int workId) {
-        return workService.read(workId);
+    public ApiResponse read(@PathVariable("work-id") int workId) {
+        return ApiResponse.success(workService.read(workId));
     }
 
     @GetMapping()
-    public List<WorkResponseDto> readAll(@PathVariable("work-id") int workId) {
-        return workService.readAll();
+    public ApiResponse readAll() {
+        return ApiResponse.success(workService.readAll());
     }
 
     @PutMapping("/{work-id}")
-    public boolean update(@PathVariable("work-id") int workId, @RequestBody WorkRequestDto workRequestDto) throws Exception {
-        return workService.update(workId, workRequestDto);
+    public ApiResponse update(@PathVariable("work-id") int workId, @RequestBody WorkRequestDto workRequestDto) throws Exception {
+        return ApiResponse.success(workService.update(workId, workRequestDto));
     }
 
     @DeleteMapping("/{work-id}")
-    public boolean delete(@PathVariable int workId) throws Exception {
-        return workService.delete(workId);
+    public ApiResponse delete(@PathVariable int workId) throws Exception {
+        return ApiResponse.success(workService.delete(workId));
     }
 }

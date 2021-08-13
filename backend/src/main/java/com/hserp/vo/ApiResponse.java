@@ -4,11 +4,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 @Getter
 public class ApiResponse<T> {
     private T code;
@@ -22,7 +24,23 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
-    public static ApiResponse of(HttpStatus e) {
+    public static ApiResponse success(Object data) {
+        return ApiResponse.builder()
+                .code(HttpStatus.OK.value())
+                .message(HttpStatus.OK.getReasonPhrase())
+                .data(data)
+                .build();
+    }
+
+    public static ApiResponse success(Object data, String message) {
+        return ApiResponse.builder()
+                .code(HttpStatus.OK.value())
+                .message(message)
+                .data(data)
+                .build();
+    }
+
+    public static ApiResponse error(HttpStatus e) {
         return ApiResponse.builder()
                 .code(e.value())
                 .message(e.getReasonPhrase())
@@ -30,11 +48,11 @@ public class ApiResponse<T> {
                 .build();
     }
 
-    public static ApiResponse of(HttpStatus e, String message) {
+    public static ApiResponse error(HttpStatus e, String message) {
         return ApiResponse.builder()
                 .code(e.value())
-                .message(e.getReasonPhrase())
-                .data(message)
+                .message(message)
+                .data(new ArrayList<>())
                 .build();
     }
 }

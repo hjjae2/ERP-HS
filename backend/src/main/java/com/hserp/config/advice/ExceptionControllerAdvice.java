@@ -1,4 +1,4 @@
-package com.hserp.config;
+package com.hserp.config.advice;
 
 import com.hserp.exception.BadRequestException;
 import com.hserp.vo.ApiResponse;
@@ -39,7 +39,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleMissingRequestCookieException(MissingRequestCookieException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.BAD_REQUEST, "적절하지 않은 요청입니다. (Please check the cookie '" + e.getCookieName() + "')");
+        ApiResponse response = ApiResponse.error(HttpStatus.BAD_REQUEST, "적절하지 않은 요청입니다. (Please check the cookie '" + e.getCookieName() + "')");
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -51,7 +51,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleBadRequestException(BadRequestException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -63,7 +63,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleLimitExceededException(LimitExceededException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -75,7 +75,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -89,7 +89,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleIOException(IOException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -102,7 +102,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleEntityNotFoundException(EntityNotFoundException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -114,7 +114,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleIllegalArgumentException(IllegalArgumentException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -127,7 +127,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.BAD_REQUEST, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
@@ -139,7 +139,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleInternalException(InternalException e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -151,7 +151,7 @@ public class ExceptionControllerAdvice {
     protected ResponseEntity<ApiResponse> handleException(Exception e) {
         printCommonExceptionHandlerMessage(e);
 
-        ApiResponse response = ApiResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        ApiResponse response = ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
