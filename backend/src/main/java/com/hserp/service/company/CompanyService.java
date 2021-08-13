@@ -5,7 +5,6 @@ import com.hserp.dto.company.CompanyResponseDto;
 import com.hserp.entity.company.Company;
 import com.hserp.exception.CustomExceptionMessage;
 import com.hserp.mapper.company.CompanyMapper;
-import com.hserp.mapper.person.PersonMapper;
 import com.hserp.repository.company.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -64,7 +63,10 @@ public class CompanyService {
 
     public boolean delete(Integer id) throws Exception {
         try {
+            companyRepository.findById(id).orElseThrow(EntityNotFoundException::new);
             companyRepository.deleteById(id);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(CustomExceptionMessage.DATA_NOT_FOUND_MESSAGE);
         } catch (Exception e) {
             throw new Exception(CustomExceptionMessage.INTERNAL_EXCEPTION_MESSAGE);
         }

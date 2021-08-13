@@ -48,11 +48,11 @@ public class ApiResponse<T> {
                 .build();
     }
 
-    public static ApiResponse error(HttpStatus e, String message) {
+    public static ApiResponse error(HttpStatus e, String data) {
         return ApiResponse.builder()
                 .code(e.value())
-                .message(message)
-                .data(new ArrayList<>())
+                .message(e.getReasonPhrase())
+                .data(data)
                 .build();
     }
 }

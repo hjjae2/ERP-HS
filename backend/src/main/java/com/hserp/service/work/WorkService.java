@@ -68,7 +68,10 @@ public class WorkService {
     @Transactional
     public boolean delete(Integer id) throws Exception {
         try {
+            workRepository.findById(id).orElseThrow(EntityNotFoundException::new);
             workRepository.deleteById(id);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(CustomExceptionMessage.DATA_NOT_FOUND_MESSAGE);
         } catch (Exception e) {
             throw new Exception(CustomExceptionMessage.INTERNAL_EXCEPTION_MESSAGE);
         }

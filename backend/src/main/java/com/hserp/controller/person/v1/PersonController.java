@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Log4RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/persons")
+@RequestMapping("/api/v1/people")
 @RestController
 public class PersonController {
 
@@ -45,7 +45,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/{person-id}")
-    public ApiResponse delete(@PathVariable Integer personId) throws Exception {
+    public ApiResponse delete(@PathVariable("person-id") Integer personId) throws Exception {
         return ApiResponse.success(personService.delete(personId));
     }
 }
