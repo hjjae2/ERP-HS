@@ -2,6 +2,11 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+
+  env: {
+    baseUrl: process.env.API_URL || 'http://localhost:8080'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'frontend',
@@ -41,7 +46,13 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv',
   ],
+
+  axios: {
+    baseURL: 'http://localhost:8080'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

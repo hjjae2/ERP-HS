@@ -13,5 +13,9 @@ export default {
   data() {
     return {}
   },
+  created() {
+    console.log(process.env.BASE_URL)
+    console.log(process.env.BASE_PORT)
+  },
 }
 </script>
