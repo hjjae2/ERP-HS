@@ -24,10 +24,10 @@ class WorkMapperTest {
         // then
         Assertions.assertThat(workRequestDto.getPrice()).isEqualTo(work.getPrice());
         Assertions.assertThat(workRequestDto.getContent()).isEqualTo(work.getContent());
+        Assertions.assertThat(workRequestDto.getCommunicator()).isEqualTo(work.getCommunicator());
         Assertions.assertThat(workRequestDto.getAddress()).isEqualTo(work.getAddress().getValue());
         Assertions.assertThat(workRequestDto.getRemark()).isEqualTo(work.getRemark().getValue());
         Assertions.assertThat(workRequestDto.getWorkType()).isEqualTo(work.getWorkType().getName());
-        Assertions.assertThat(workRequestDto.getWorkStatus()).isEqualTo(work.getWorkStatus().getName());
         Assertions.assertThat(workRequestDto.getPaymentStatus()).isEqualTo(work.getPaymentStatus().getName());
         Assertions.assertThat(workRequestDto.getExpenditureStatus()).isEqualTo(work.getExpenditureStatus().getName());
         Assertions.assertThat(workRequestDto.getCompany()).isNull();
@@ -47,10 +47,10 @@ class WorkMapperTest {
         // then
         Assertions.assertThat(workRequestDto.getPrice()).isEqualTo(work.getPrice());
         Assertions.assertThat(workRequestDto.getContent()).isEqualTo(work.getContent());
+        Assertions.assertThat(workRequestDto.getCommunicator()).isEqualTo(work.getCommunicator());
         Assertions.assertThat(workRequestDto.getAddress()).isEqualTo(work.getAddress().getValue());
         Assertions.assertThat(workRequestDto.getRemark()).isEqualTo(work.getRemark().getValue());
         Assertions.assertThat(workRequestDto.getWorkType()).isEqualTo(work.getWorkType().getName());
-        Assertions.assertThat(workRequestDto.getWorkStatus()).isEqualTo(work.getWorkStatus().getName());
         Assertions.assertThat(workRequestDto.getPaymentStatus()).isEqualTo(work.getPaymentStatus().getName());
         Assertions.assertThat(workRequestDto.getExpenditureStatus()).isEqualTo(work.getExpenditureStatus().getName());
         Assertions.assertThat(workRequestDto.getCompany()).isEqualTo(work.getCompany().getName());
@@ -68,10 +68,10 @@ class WorkMapperTest {
         // then
         Assertions.assertThat(workResponseDto.getPrice()).isEqualTo(work.getPrice());
         Assertions.assertThat(workResponseDto.getContent()).isEqualTo(work.getContent());
+        Assertions.assertThat(workResponseDto.getCommunicator()).isEqualTo(work.getCommunicator());
         Assertions.assertThat(workResponseDto.getAddress()).isEqualTo(work.getAddress().getValue());
         Assertions.assertThat(workResponseDto.getRemark()).isEqualTo(work.getRemark().getValue());
         Assertions.assertThat(workResponseDto.getWorkType()).isEqualTo(work.getWorkType().getName());
-        Assertions.assertThat(workResponseDto.getWorkStatus()).isEqualTo(work.getWorkStatus().getName());
         Assertions.assertThat(workResponseDto.getPaymentStatus()).isEqualTo(work.getPaymentStatus().getName());
         Assertions.assertThat(workResponseDto.getExpenditureStatus()).isEqualTo(work.getExpenditureStatus().getName());
         Assertions.assertThat(workResponseDto.getCompany()).isNull();
@@ -91,10 +91,10 @@ class WorkMapperTest {
         // then
         Assertions.assertThat(workResponseDto.getPrice()).isEqualTo(work.getPrice());
         Assertions.assertThat(workResponseDto.getContent()).isEqualTo(work.getContent());
+        Assertions.assertThat(workResponseDto.getCommunicator()).isEqualTo(work.getCommunicator());
         Assertions.assertThat(workResponseDto.getAddress()).isEqualTo(work.getAddress().getValue());
         Assertions.assertThat(workResponseDto.getRemark()).isEqualTo(work.getRemark().getValue());
         Assertions.assertThat(workResponseDto.getWorkType()).isEqualTo(work.getWorkType().getName());
-        Assertions.assertThat(workResponseDto.getWorkStatus()).isEqualTo(work.getWorkStatus().getName());
         Assertions.assertThat(workResponseDto.getPaymentStatus()).isEqualTo(work.getPaymentStatus().getName());
         Assertions.assertThat(workResponseDto.getExpenditureStatus()).isEqualTo(work.getExpenditureStatus().getName());
         Assertions.assertThat(workResponseDto.getCompany()).isEqualTo(work.getCompany().getName());
@@ -107,11 +107,11 @@ class WorkMapperTest {
         WorkRequestDto workRequestDto = WorkRequestDto.builder()
                 .content(CommonVariable.getContent())
                 .price(CommonVariable.getPrice())
+                .communicator(CommonVariable.getCommunicator())
                 .workDate(LocalDate.now())
                 .address(CommonVariable.getAddress().getValue())
                 .remark(CommonVariable.getRemark().getValue())
                 .workType(CommonVariable.getWorkType().getName())
-                .workStatus(CommonVariable.getWorkStatus().getName())
                 .worker(null)
                 .company(null)
                 .paymentStatus(CommonVariable.getPaymentStatus().getName())
@@ -125,14 +125,16 @@ class WorkMapperTest {
         // then
         Assertions.assertThat(work.getPrice()).isEqualTo(workRequestDto.getPrice());
         Assertions.assertThat(work.getContent()).isEqualTo(workRequestDto.getContent());
+        Assertions.assertThat(work.getCommunicator()).isEqualTo(workRequestDto.getCommunicator());
         Assertions.assertThat(work.getAddress().getValue()).isEqualTo(workRequestDto.getAddress());
         Assertions.assertThat(work.getRemark().getValue()).isEqualTo(workRequestDto.getRemark());
-        Assertions.assertThat(work.getWorkType().getName()).isEqualTo(workRequestDto.getWorkType());
-        Assertions.assertThat(work.getWorkStatus().getName()).isEqualTo(workRequestDto.getWorkStatus());
-        Assertions.assertThat(work.getPaymentStatus().getName()).isEqualTo(workRequestDto.getPaymentStatus());
-        Assertions.assertThat(work.getExpenditureStatus().getName()).isEqualTo(workRequestDto.getExpenditureStatus());
-        Assertions.assertThat(work.getCompany().getName()).isEqualTo(workRequestDto.getCompany());
-        Assertions.assertThat(work.getWorker().getName()).isEqualTo(workRequestDto.getWorker());
+
+        Assertions.assertThat(work.getWorker()).isNull();
+        Assertions.assertThat(work.getCompany()).isNull();
+        Assertions.assertThat(work.getWorkType()).isNull();
+        Assertions.assertThat(work.getPaymentStatus()).isNull();
+        Assertions.assertThat(work.getExpenditureStatus()).isNull();
+        Assertions.assertThat(work.getTaxStatus()).isNull();
     }
 
     @Test
@@ -141,11 +143,11 @@ class WorkMapperTest {
         WorkResponseDto workResponseDto = WorkResponseDto.builder()
                 .content(CommonVariable.getContent())
                 .price(CommonVariable.getPrice())
+                .communicator(CommonVariable.getCommunicator())
                 .workDate(LocalDate.now())
                 .address(CommonVariable.getAddress().getValue())
                 .remark(CommonVariable.getRemark().getValue())
                 .workType(CommonVariable.getWorkType().getName())
-                .workStatus(CommonVariable.getWorkStatus().getName())
                 .worker(null)
                 .company(null)
                 .paymentStatus(CommonVariable.getPaymentStatus().getName())
@@ -159,13 +161,15 @@ class WorkMapperTest {
         // then
         Assertions.assertThat(work.getPrice()).isEqualTo(workResponseDto.getPrice());
         Assertions.assertThat(work.getContent()).isEqualTo(workResponseDto.getContent());
+        Assertions.assertThat(work.getCommunicator()).isEqualTo(workResponseDto.getCommunicator());
         Assertions.assertThat(work.getAddress().getValue()).isEqualTo(workResponseDto.getAddress());
         Assertions.assertThat(work.getRemark().getValue()).isEqualTo(workResponseDto.getRemark());
-        Assertions.assertThat(work.getWorkType().getName()).isEqualTo(workResponseDto.getWorkType());
-        Assertions.assertThat(work.getWorkStatus().getName()).isEqualTo(workResponseDto.getWorkStatus());
-        Assertions.assertThat(work.getPaymentStatus().getName()).isEqualTo(workResponseDto.getPaymentStatus());
-        Assertions.assertThat(work.getExpenditureStatus().getName()).isEqualTo(workResponseDto.getExpenditureStatus());
-        Assertions.assertThat(work.getCompany().getName()).isEqualTo(workResponseDto.getCompany());
-        Assertions.assertThat(work.getWorker().getName()).isEqualTo(workResponseDto.getWorker());
+
+        Assertions.assertThat(work.getWorker()).isNull();
+        Assertions.assertThat(work.getCompany()).isNull();
+        Assertions.assertThat(work.getWorkType()).isNull();
+        Assertions.assertThat(work.getPaymentStatus()).isNull();
+        Assertions.assertThat(work.getExpenditureStatus()).isNull();
+        Assertions.assertThat(work.getTaxStatus()).isNull();
     }
 }

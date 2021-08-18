@@ -19,10 +19,10 @@ public class WorkRequestDto {
     private String worker;
     private String company;
     private String remark;
-    private String workStatus;
     private String paymentStatus;
     private String expenditureStatus;
     private String taxStatus;
     private Integer price;
+    private Character communicator;
     private LocalDate workDate;
 }

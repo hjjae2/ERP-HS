@@ -1,9 +1,8 @@
 package com.hserp.controller.person.v1;
 
-import com.hserp.annotation.Log4RestController;
 import com.hserp.dto.person.PersonRequestDto;
+import com.hserp.dto.person.PersonResponseDto;
 import com.hserp.service.person.PersonService;
-import com.hserp.vo.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Log4RestController
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/people")
 @RestController
@@ -23,29 +23,28 @@ public class PersonController {
     private final PersonService personService;
 
     @PostMapping()
-    public ApiResponse create(@RequestBody PersonRequestDto personRequestDto) throws Exception {
-        Integer personId = personService.create(personRequestDto);
-        return ApiResponse.success(personId);
+    public int create(@RequestBody PersonRequestDto personRequestDto) throws Exception {
+        return personService.create(personRequestDto);
     }
 
     @GetMapping("/{person-id}")
-    public ApiResponse read(@PathVariable("person-id") Integer personId) {
-        return ApiResponse.success(personService.read(personId));
+    public PersonResponseDto read(@PathVariable("person-id") Integer personId) {
+        return personService.read(personId);
     }
 
     @GetMapping()
-    public ApiResponse readAll() {
-        return ApiResponse.success(personService.readAll());
+    public List<PersonResponseDto> readAll() {
+        return personService.readAll();
     }
 
     @PutMapping("/{person-id}")
-    public ApiResponse update(@PathVariable("person-id") Integer personId,
-                              @RequestBody PersonRequestDto personRequestDto) throws Exception {
-        return ApiResponse.success(personService.update(personId, personRequestDto));
+    public boolean update(@PathVariable("person-id") Integer personId,
+                          @RequestBody PersonRequestDto personRequestDto) throws Exception {
+        return personService.update(personId, personRequestDto);
     }
 
     @DeleteMapping("/{person-id}")
-    public ApiResponse delete(@PathVariable("person-id") Integer personId) throws Exception {
-        return ApiResponse.success(personService.delete(personId));
+    public boolean delete(@PathVariable("person-id") Integer personId) throws Exception {
+        return personService.delete(personId);
     }
 }

@@ -10,7 +10,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -51,32 +50,30 @@ public class Company extends CommonTime {
     @JoinColumn(name = "person_id", nullable = true)
     private Person manager;
 
-    public void changeName(String name) {
-        this.name = name;
+    public void changeName(String newName) {
+        if(newName != null && !newName.equals(this.name)) {
+            this.name = newName;
+        }
     }
 
     public void changePhone(Phone newPhone) {
-        if(newPhone != null && !newPhone.equals(this.phone)) {
-            this.phone = newPhone;
-        }
+        this.phone = newPhone;
     }
 
     public void changeEmail(Email newEmail) {
-        if(newEmail != null && !newEmail.equals(this.email)) {
-            this.email = newEmail;
-        }
+        this.email = newEmail;
     }
 
     public void changeAddress(Address newAddress) {
-        if(newAddress != null && !newAddress.equals(this.address)) {
-            this.address = newAddress;
-        }
+        this.address = newAddress;
     }
 
     public void changeRemark(Remark newRemark) {
-        if(newRemark != null && !newRemark.equals(this.remark)) {
-            this.remark = newRemark;
-        }
+        this.remark = newRemark;
+    }
+
+    public void changeManager(Person newManager) {
+        this.manager = newManager;
     }
 
     public void changeTo(Company newCompany) {
@@ -85,6 +82,7 @@ public class Company extends CommonTime {
         this.changeEmail(newCompany.getEmail());
         this.changeAddress(newCompany.getAddress());
         this.changeRemark(newCompany.getRemark());
+        this.changeManager(newCompany.getManager());
     }
 
     @Override

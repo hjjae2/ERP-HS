@@ -20,12 +20,20 @@ public class CommonVariable {
         return "홍길동";
     }
 
+    public static String getCompanyName() {
+        return "HS-ERP";
+    }
+
     public static String getContent() {
         return "content 영역 입니다.";
     }
 
     public static Integer getPrice() {
         return 10000;
+    }
+
+    public static Character getCommunicator() {
+        return 'N';
     }
 
     public static Phone getPhone() {
@@ -68,31 +76,103 @@ public class CommonVariable {
         return new Person(null, getName(), getPhone(), getEmail(), getAddress(), getRemark(), null);
     }
 
+    public static Person getPerson(String name) {
+        return new Person(null, name, getPhone(), getEmail(), getAddress(), getRemark(), null);
+    }
+
     public static Person getPerson(Company company) {
         return new Person(null, getName(), getPhone(), getEmail(), getAddress(), getRemark(), company);
     }
 
+    public static Person getPerson(String name, Company company) {
+        return new Person(null, name, getPhone(), getEmail(), getAddress(), getRemark(), company);
+    }
+
     public static Company getCompany() {
-        return new Company(null, "HS-ERP", getPhone(), getEmail(), getAddress(), getRemark(), null);
+        return new Company(null, getCompanyName(), getPhone(), getEmail(), getAddress(), getRemark(), null);
+    }
+
+    public static Company getCompany(String name) {
+        return new Company(null, name, getPhone(), getEmail(), getAddress(), getRemark(), null);
     }
 
     public static Company getCompany(Person person) {
         return new Company(null, "HS-ERP", getPhone(), getEmail(), getAddress(), getRemark(), person);
     }
 
+    public static Company getCompany(String name, Person person) {
+        return new Company(null, name, getPhone(), getEmail(), getAddress(), getRemark(), person);
+    }
+
     public static Work getWork() {
-        return new Work(null, getContent(), getPrice(), getAddress(), getRemark(), LocalDate.now(), getWorkType(), null, null, getWorkStatus(), getPaymentStatus(), getExpenditureStatus(), getTaxStatus());
+        return Work.builder()
+                .id(null)
+                .content(getContent())
+                .communicator(getCommunicator())
+                .price(getPrice())
+                .address(getAddress())
+                .remark(getRemark())
+                .worker(null)
+                .company(null)
+                .workType(getWorkType())
+                .workDate(LocalDate.now())
+                .paymentStatus(getPaymentStatus())
+                .expenditureStatus(getExpenditureStatus())
+                .taxStatus(getTaxStatus())
+                .build();
     }
 
     public static Work getWork(Person worker) {
-        return new Work(null, getContent(), getPrice(), getAddress(), getRemark(), LocalDate.now(), getWorkType(), worker, null, getWorkStatus(), getPaymentStatus(), getExpenditureStatus(), getTaxStatus());
+        return Work.builder()
+                .id(null)
+                .content(getContent())
+                .communicator(getCommunicator())
+                .price(getPrice())
+                .address(getAddress())
+                .remark(getRemark())
+                .worker(worker)
+                .company(null)
+                .workType(getWorkType())
+                .workDate(LocalDate.now())
+                .paymentStatus(getPaymentStatus())
+                .expenditureStatus(getExpenditureStatus())
+                .taxStatus(getTaxStatus())
+                .build();
     }
 
     public static Work getWork(Company company) {
-        return new Work(null, getContent(), getPrice(), getAddress(), getRemark(), LocalDate.now(), getWorkType(), null, company, getWorkStatus(), getPaymentStatus(), getExpenditureStatus(), getTaxStatus());
+        return Work.builder()
+                .id(null)
+                .content(getContent())
+                .communicator(getCommunicator())
+                .price(getPrice())
+                .address(getAddress())
+                .remark(getRemark())
+                .worker(null)
+                .company(company)
+                .workType(getWorkType())
+                .workDate(LocalDate.now())
+                .paymentStatus(getPaymentStatus())
+                .expenditureStatus(getExpenditureStatus())
+                .taxStatus(getTaxStatus())
+                .build();
     }
 
     public static Work getWork(Person worker, Company company) {
-        return new Work(null, getContent(), getPrice(), getAddress(), getRemark(), LocalDate.now(), getWorkType(), worker, company, getWorkStatus(), getPaymentStatus(), getExpenditureStatus(), getTaxStatus());
+        return Work.builder()
+                .id(null)
+                .content(getContent())
+                .communicator(getCommunicator())
+                .price(getPrice())
+                .address(getAddress())
+                .remark(getRemark())
+                .worker(worker)
+                .company(company)
+                .workType(getWorkType())
+                .workDate(LocalDate.now())
+                .paymentStatus(getPaymentStatus())
+                .expenditureStatus(getExpenditureStatus())
+                .taxStatus(getTaxStatus())
+                .build();
     }
 }

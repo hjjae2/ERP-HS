@@ -13,12 +13,12 @@ import java.util.ArrayList;
 @ToString
 @Getter
 public class ApiResponse<T> {
-    private T code;
-    private T message;
+    private Integer code;
+    private String message;
     private T data;
 
     @Builder
-    public ApiResponse(T code, T message, T data){
+    public ApiResponse(Integer code, String message, T data){
         this.code = code;
         this.message = message;
         this.data = data;

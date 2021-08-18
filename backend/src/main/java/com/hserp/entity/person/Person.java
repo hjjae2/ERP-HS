@@ -10,8 +10,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -26,14 +24,13 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 @Getter
 @Entity
 public class Person extends CommonTime {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 8, nullable = false)
+    @Column(length = 8, nullable = false, unique = true)
     private String name;
 
     @Embedded
@@ -52,38 +49,30 @@ public class Person extends CommonTime {
     @JoinColumn(name = "company_id", nullable = true)
     private Company company;
 
-    public void changeName(String name) {
-        this.name = name;
+    public void changeName(String newName) {
+        if(newName != null && !newName.equals(this.name)) {
+            this.name = newName;
+        }
     }
 
     public void changePhone(Phone newPhone) {
-        if(newPhone != null && !newPhone.equals(this.phone)) {
-            this.phone = newPhone;
-        }
+        this.phone = newPhone;
     }
 
     public void changeEmail(Email newEmail) {
-        if(newEmail != null && !newEmail.equals(this.email)) {
-            this.email = newEmail;
-        }
+        this.email = newEmail;
     }
 
     public void changeAddress(Address newAddress) {
-        if(newAddress != null && !newAddress.equals(this.address)) {
-            this.address = newAddress;
-        }
+        this.address = newAddress;
     }
 
     public void changeRemark(Remark newRemark) {
-        if(newRemark != null && !newRemark.equals(this.remark)) {
-            this.remark = newRemark;
-        }
+        this.remark = newRemark;
     }
 
     public void changeCompany(Company newCompany) {
-        if(newCompany != null && !newCompany.equals(this.company)) {
-            this.company = newCompany;
-        }
+        this.company = newCompany;
     }
 
     public void changeTo(Person newPerson) {

@@ -7,6 +7,7 @@ import com.hserp.entity.Remark;
 import com.hserp.entity.person.Person;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,6 +25,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Getter
 @Entity
 public class Work extends CommonTime {
@@ -33,8 +35,11 @@ public class Work extends CommonTime {
     @Column(length = 255, nullable = true)
     private String content;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "default = 'N'")
     private Integer price;
+
+    @Column(name="is_communicator", nullable = false, columnDefinition = "default = 'N'")
+    private Character communicator = 'N';
 
     @Embedded
     private Address address;
@@ -49,17 +54,13 @@ public class Work extends CommonTime {
     @JoinColumn(name = "work_type_id", nullable = false)
     private WorkType workType;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "person_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "person_id", nullable = true)
     private Person worker;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "company_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "company_id", nullable = true)
     private Company company;
-
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "work_status_id", nullable = false)
-    private WorkStatus workStatus;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "payment_status_id", nullable = false)
@@ -81,6 +82,14 @@ public class Work extends CommonTime {
         this.price = price;
     }
 
+    public void changeCommunicatorToYes() {
+        this.communicator = 'Y';
+    }
+
+    public void changeCommunicatorToNo() {
+        this.communicator = 'N';
+    }
+
     public void changeWorkDate(LocalDate newWorkDate) {
         this.workDate = newWorkDate;
     }
@@ -98,26 +107,16 @@ public class Work extends CommonTime {
     }
 
     public void changeCompany(Company newCompany) {
-        if(newCompany != null && !newCompany.equals(this.company)) {
-            this.company = newCompany;
-        }
+        this.company = newCompany;
     }
 
     public void changeWorker(Person newWorker) {
-        if(newWorker != null && !newWorker.equals(this.worker)) {
-            this.worker = newWorker;
-        }
+        this.worker = newWorker;
     }
 
     public void changeWorkType(WorkType newWorkType) {
         if(newWorkType != null && !newWorkType.equals(this.workType)) {
             this.workType = newWorkType;
-        }
-    }
-
-    public void changeWorkStatus(WorkStatus newWorkStatus) {
-        if(newWorkStatus != null && !newWorkStatus.equals(this.workStatus)) {
-            this.workStatus = newWorkStatus;
         }
     }
 
@@ -148,10 +147,15 @@ public class Work extends CommonTime {
         this.changeCompany(newWork.getCompany());
         this.changeWorker(newWork.getWorker());
         this.changeWorkType(newWork.getWorkType());
-        this.changeWorkStatus(newWork.getWorkStatus());
         this.changePaymentStatus(newWork.getPaymentStatus());
         this.changeExpenditureStatus(newWork.expenditureStatus);
         this.changeTaxStatus(newWork.getTaxStatus());
+
+        if(newWork.getCommunicator() == 'Y') {
+            this.changeCommunicatorToYes();
+        } else {
+            this.changeCommunicatorToNo();
+        }
     }
 
     @Override
@@ -163,23 +167,23 @@ public class Work extends CommonTime {
             return false;
         }
 
-        Work work = (Work) obj;
-        return Objects.equals(content, work.content)
-                && Objects.equals(price, work.price)
-                && Objects.equals(address, work.address)
-                && Objects.equals(remark, work.remark)
-                && Objects.equals(workDate, work.workDate)
-                && Objects.equals(workType, work.workType)
-                && Objects.equals(worker, work.worker)
-                && Objects.equals(company, work.company)
-                && Objects.equals(workStatus, work.workStatus)
-                && Objects.equals(paymentStatus, work.paymentStatus)
-                && Objects.equals(expenditureStatus, work.expenditureStatus)
-                && Objects.equals(taxStatus, work.taxStatus);
+        Work target = (Work) obj;
+        return Objects.equals(content, target.content)
+                && Objects.equals(price, target.price)
+                && Objects.equals(address, target.address)
+                && Objects.equals(communicator, target.communicator)
+                && Objects.equals(remark, target.remark)
+                && Objects.equals(workDate, target.workDate)
+                && Objects.equals(workType, target.workType)
+                && Objects.equals(worker, target.worker)
+                && Objects.equals(company, target.company)
+                && Objects.equals(paymentStatus, target.paymentStatus)
+                && Objects.equals(expenditureStatus, target.expenditureStatus)
+                && Objects.equals(taxStatus, target.taxStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(content, price, address, remark, workDate, workType, worker, company, workStatus, paymentStatus, expenditureStatus, taxStatus);
+        return Objects.hash(content, price, address, communicator, remark, workDate, workType, worker, company, paymentStatus, expenditureStatus, taxStatus);
     }
 }

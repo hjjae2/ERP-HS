@@ -30,13 +30,13 @@ public interface CompanyMapper {
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "manager", target = "manager.name")
+    @Mapping(target = "manager", ignore = true)
     Company companyRequestDtoToCompany(CompanyRequestDto companyRequestDto);
 
     @Mapping(source = "phone", target = "phone.value")
     @Mapping(source = "email", target = "email.value")
     @Mapping(source = "address", target = "address.value")
     @Mapping(source = "remark", target = "remark.value")
-    @Mapping(source = "manager", target = "manager.name")
+    @Mapping(target = "manager", ignore = true)
     Company companyResponseDtoToCompany(CompanyResponseDto companyResponseDto);
 }

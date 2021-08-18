@@ -8,7 +8,6 @@ import com.hserp.exception.CustomExceptionMessage;
 import com.hserp.mapper.person.PersonMapper;
 import com.hserp.repository.company.CompanyRepository;
 import com.hserp.repository.person.PersonRepository;
-import com.hserp.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -27,25 +26,23 @@ public class PersonService {
     private final CompanyRepository companyRepository;
 
     @Transactional
-    public Integer create(PersonRequestDto personRequestDto) throws Exception {
+    public int create(PersonRequestDto personRequestDto) throws Exception {
         Person person = PersonMapper.INSTANCE.personRequestDtoToPerson(personRequestDto);
         Company company = null;
 
         try {
-            if(personRequestDto.getCompany() != null) {
+            if(personRequestDto.getCompany() != null && !personRequestDto.getCompany().isEmpty()) {
                 company = companyRepository.findByName(personRequestDto.getCompany()).orElseThrow(EntityNotFoundException::new);
             }
             person.changeCompany(company);
-
-            System.out.println(person);
 
             return personRepository.save(person).getId();
         } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException(CustomExceptionMessage.DATA_NOT_FOUND_MESSAGE);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException(CustomExceptionMessage.BAD_REQUEST_MESSAGE);
+            throw new DataIntegrityViolationException(CustomExceptionMessage.BAD_REQUEST_MESSAGE(e.getMostSpecificCause().getMessage()));
         } catch (Exception e) {
-            throw new Exception(CustomExceptionMessage.INTERNAL_EXCEPTION_MESSAGE);
+            throw new Exception(CustomExceptionMessage.INTERNAL_EXCEPTION_MESSAGE(e.getMessage()));
         }
     }
 
@@ -66,12 +63,20 @@ public class PersonService {
         try {
             Person person = personRepository.findById(id).orElseThrow(EntityNotFoundException::new);
             Person newPerson = PersonMapper.INSTANCE.personRequestDtoToPerson(personRequestDto);
+            Company company = null;
+
+            if(personRequestDto.getCompany() != null && !personRequestDto.getCompany().isEmpty()) {
+                company = companyRepository.findByName(personRequestDto.getCompany()).orElseThrow(EntityNotFoundException::new);
+            }
+            newPerson.changeCompany(company);
 
             if(!person.equals(newPerson)) {
                 person.changeTo(newPerson);
             }
         } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException(CustomExceptionMessage.DATA_NOT_FOUND_MESSAGE);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException(CustomExceptionMessage.BAD_REQUEST_MESSAGE(e.getMostSpecificCause().getMessage()));
         } catch (Exception e) {
             throw new Exception(CustomExceptionMessage.INTERNAL_EXCEPTION_MESSAGE);
         }
@@ -86,6 +91,8 @@ public class PersonService {
             personRepository.deleteById(id);
         } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException(CustomExceptionMessage.DATA_NOT_FOUND_MESSAGE);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException(CustomExceptionMessage.BAD_REQUEST_MESSAGE(e.getMostSpecificCause().getMessage()));
         } catch (Exception e) {
             throw new Exception(CustomExceptionMessage.INTERNAL_EXCEPTION_MESSAGE);
         }
