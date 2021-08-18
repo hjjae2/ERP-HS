@@ -13,16 +13,18 @@ import java.time.LocalDate;
 @Getter
 public class WorkRequestDto {
 
+    private LocalDate workDate;
     private String workType;
-    private String address;
-    private String content;
     private String worker;
     private String company;
+    private String customer;
+    private String dispatcher;
+    private String address;
+    private String content;
     private String remark;
     private String paymentStatus;
     private String expenditureStatus;
     private String taxStatus;
     private Integer price;
     private Character communicator;
-    private LocalDate workDate;
 }

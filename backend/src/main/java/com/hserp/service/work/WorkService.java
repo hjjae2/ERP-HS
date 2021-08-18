@@ -42,19 +42,25 @@ public class WorkService {
 
     @Transactional
     public int create(WorkRequestDto workRequestDto) throws Exception {
-        Work work = WorkMapper.INSTANCE.workRequestDtoToWork(workRequestDto);
-
-        System.out.println(workRequestDto);
-        System.out.println(work);
-        Person worker = null;
-        Company company = null;
-
         try {
+            Work work = WorkMapper.INSTANCE.workRequestDtoToWork(workRequestDto);
+
+            Person worker = null;
+            Person dispatcher = null;
+            Company company = null;
+            Company customer = null;
+
             if(workRequestDto.getWorker() != null && !workRequestDto.getWorker().isEmpty()) {
                 worker = personRepository.findByName(workRequestDto.getWorker()).orElseThrow(EntityNotFoundException::new);
             }
+            if(workRequestDto.getDispatcher() != null && !workRequestDto.getDispatcher().isEmpty()) {
+                dispatcher = personRepository.findByName(workRequestDto.getDispatcher()).orElseThrow(EntityNotFoundException::new);
+            }
             if(workRequestDto.getCompany() != null && !workRequestDto.getCompany().isEmpty()) {
                 company = companyRepository.findByName(workRequestDto.getCompany()).orElseThrow(EntityNotFoundException::new);
+            }
+            if(workRequestDto.getCustomer() != null && !workRequestDto.getCustomer().isEmpty()) {
+                customer = companyRepository.findByName(workRequestDto.getCustomer()).orElseThrow(EntityNotFoundException::new);
             }
 
             WorkType workType = workTypeRepository.findByName(workRequestDto.getWorkType()).orElseThrow(EntityNotFoundException::new);
@@ -64,6 +70,8 @@ public class WorkService {
 
             work.changeWorker(worker);
             work.changeCompany(company);
+            work.changeCustomer(customer);
+            work.changeDispatcher(dispatcher);
             work.changeWorkType(workType);
             work.changePaymentStatus(paymentStatus);
             work.changeExpenditureStatus(expenditureStatus);
@@ -97,13 +105,21 @@ public class WorkService {
             Work work = workRepository.findById(id).orElseThrow(EntityNotFoundException::new);
             Work newWork = WorkMapper.INSTANCE.workRequestDtoToWork(workRequestDto);
             Person worker = null;
+            Person dispatcher = null;
             Company company = null;
+            Company customer = null;
 
             if(workRequestDto.getWorker() != null && !workRequestDto.getWorker().isEmpty()) {
                 worker = personRepository.findByName(workRequestDto.getWorker()).orElseThrow(EntityNotFoundException::new);
             }
+            if(workRequestDto.getDispatcher() != null && !workRequestDto.getDispatcher().isEmpty()) {
+                dispatcher = personRepository.findByName(workRequestDto.getDispatcher()).orElseThrow(EntityNotFoundException::new);
+            }
             if(workRequestDto.getCompany() != null && !workRequestDto.getCompany().isEmpty()) {
                 company = companyRepository.findByName(workRequestDto.getCompany()).orElseThrow(EntityNotFoundException::new);
+            }
+            if(workRequestDto.getCustomer() != null && !workRequestDto.getCustomer().isEmpty()) {
+                customer = companyRepository.findByName(workRequestDto.getCustomer()).orElseThrow(EntityNotFoundException::new);
             }
 
             WorkType workType = workTypeRepository.findByName(workRequestDto.getWorkType()).orElseThrow(EntityNotFoundException::new);
@@ -113,6 +129,8 @@ public class WorkService {
 
             newWork.changeWorker(worker);
             newWork.changeCompany(company);
+            newWork.changeCustomer(customer);
+            newWork.changeDispatcher(dispatcher);
             newWork.changeWorkType(workType);
             newWork.changePaymentStatus(paymentStatus);
             newWork.changeExpenditureStatus(expenditureStatus);

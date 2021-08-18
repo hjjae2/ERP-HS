@@ -114,6 +114,8 @@ public class CommonVariable {
                 .remark(getRemark())
                 .worker(null)
                 .company(null)
+                .customer(null)
+                .dispatcher(null)
                 .workType(getWorkType())
                 .workDate(LocalDate.now())
                 .paymentStatus(getPaymentStatus())
@@ -132,6 +134,8 @@ public class CommonVariable {
                 .remark(getRemark())
                 .worker(worker)
                 .company(null)
+                .customer(null)
+                .dispatcher(null)
                 .workType(getWorkType())
                 .workDate(LocalDate.now())
                 .paymentStatus(getPaymentStatus())
@@ -150,6 +154,8 @@ public class CommonVariable {
                 .remark(getRemark())
                 .worker(null)
                 .company(company)
+                .customer(null)
+                .dispatcher(null)
                 .workType(getWorkType())
                 .workDate(LocalDate.now())
                 .paymentStatus(getPaymentStatus())
@@ -158,7 +164,7 @@ public class CommonVariable {
                 .build();
     }
 
-    public static Work getWork(Person worker, Company company) {
+    public static Work getWork(Person worker, Company company, Person dispatcher, Company customer) {
         return Work.builder()
                 .id(null)
                 .content(getContent())
@@ -168,6 +174,8 @@ public class CommonVariable {
                 .remark(getRemark())
                 .worker(worker)
                 .company(company)
+                .customer(customer)
+                .dispatcher(dispatcher)
                 .workType(getWorkType())
                 .workDate(LocalDate.now())
                 .paymentStatus(getPaymentStatus())

@@ -55,12 +55,20 @@ public class Work extends CommonTime {
     private WorkType workType;
 
     @OneToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "person_id", nullable = true)
+    @JoinColumn(name = "worker_id", nullable = true)
     private Person worker;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "dispatcher_id", nullable = true)
+    private Person dispatcher;
 
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "company_id", nullable = true)
     private Company company;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "customer_id", nullable = true)
+    private Company customer;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "payment_status_id", nullable = false)
@@ -110,8 +118,16 @@ public class Work extends CommonTime {
         this.company = newCompany;
     }
 
+    public void changeCustomer(Company newCustomer) {
+        this.customer = newCustomer;
+    }
+
     public void changeWorker(Person newWorker) {
         this.worker = newWorker;
+    }
+
+    public void changeDispatcher(Person newDispatcher) {
+        this.dispatcher = newDispatcher;
     }
 
     public void changeWorkType(WorkType newWorkType) {
@@ -145,7 +161,9 @@ public class Work extends CommonTime {
         this.changeAddress(newWork.getAddress());
         this.changeRemark(newWork.getRemark());
         this.changeCompany(newWork.getCompany());
+        this.changeCustomer(newWork.getCustomer());
         this.changeWorker(newWork.getWorker());
+        this.changeDispatcher(newWork.getDispatcher());
         this.changeWorkType(newWork.getWorkType());
         this.changePaymentStatus(newWork.getPaymentStatus());
         this.changeExpenditureStatus(newWork.expenditureStatus);
@@ -176,7 +194,9 @@ public class Work extends CommonTime {
                 && Objects.equals(workDate, target.workDate)
                 && Objects.equals(workType, target.workType)
                 && Objects.equals(worker, target.worker)
+                && Objects.equals(dispatcher, target.dispatcher)
                 && Objects.equals(company, target.company)
+                && Objects.equals(customer, target.customer)
                 && Objects.equals(paymentStatus, target.paymentStatus)
                 && Objects.equals(expenditureStatus, target.expenditureStatus)
                 && Objects.equals(taxStatus, target.taxStatus);
@@ -184,6 +204,6 @@ public class Work extends CommonTime {
 
     @Override
     public int hashCode() {
-        return Objects.hash(content, price, address, communicator, remark, workDate, workType, worker, company, paymentStatus, expenditureStatus, taxStatus);
+        return Objects.hash(content, price, address, communicator, remark, workDate, workType, worker, dispatcher, company, customer, paymentStatus, expenditureStatus, taxStatus);
     }
 }
