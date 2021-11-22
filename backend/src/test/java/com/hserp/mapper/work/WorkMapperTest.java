@@ -1,11 +1,12 @@
 package com.hserp.mapper.work;
 
 import com.hserp.CommonVariable;
-import com.hserp.dto.work.WorkRequestDto;
-import com.hserp.dto.work.WorkResponseDto;
-import com.hserp.entity.company.Company;
-import com.hserp.entity.person.Person;
-import com.hserp.entity.work.Work;
+import com.hserp.work.dto.WorkRequestDto;
+import com.hserp.work.dto.WorkResponseDto;
+import com.hserp.company.domain.Company;
+import com.hserp.person.domain.Person;
+import com.hserp.work.domain.Work;
+import com.hserp.work.WorkMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

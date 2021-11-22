@@ -1,17 +1,17 @@
 package com.hserp;
 
-import com.hserp.entity.Address;
-import com.hserp.entity.Email;
-import com.hserp.entity.Phone;
-import com.hserp.entity.Remark;
-import com.hserp.entity.company.Company;
-import com.hserp.entity.person.Person;
-import com.hserp.entity.work.ExpenditureStatus;
-import com.hserp.entity.work.PaymentStatus;
-import com.hserp.entity.work.TaxStatus;
-import com.hserp.entity.work.Work;
-import com.hserp.entity.work.WorkStatus;
-import com.hserp.entity.work.WorkType;
+import com.hserp.global.domain.Address;
+import com.hserp.global.domain.Email;
+import com.hserp.global.domain.Phone;
+import com.hserp.global.domain.Remark;
+import com.hserp.company.domain.Company;
+import com.hserp.person.domain.Person;
+import com.hserp.work.domain.ExpenditureStatus;
+import com.hserp.work.domain.PaymentStatus;
+import com.hserp.work.domain.TaxStatus;
+import com.hserp.work.domain.Work;
+import com.hserp.work.domain.WorkStatus;
+import com.hserp.work.domain.WorkType;
 
 import java.time.LocalDate;
 

@@ -1,10 +1,11 @@
 package com.hserp.mapper.person;
 
 import com.hserp.CommonVariable;
-import com.hserp.entity.company.Company;
-import com.hserp.dto.person.PersonRequestDto;
-import com.hserp.dto.person.PersonResponseDto;
-import com.hserp.entity.person.Person;
+import com.hserp.company.domain.Company;
+import com.hserp.person.dto.PersonRequestDto;
+import com.hserp.person.dto.PersonResponseDto;
+import com.hserp.person.domain.Person;
+import com.hserp.person.PersonMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +52,10 @@ class PersonMapperTest {
 
         // then
         Assertions.assertThat(person.getName()).isEqualTo(requestDto.getName());
-        Assertions.assertThat(person.getCompany().getName()).isEqualTo(requestDto.getCompany());
+        Assertions.assertThat(person.getPhone().getValue()).isEqualTo(requestDto.getPhone());
+        Assertions.assertThat(person.getEmail().getValue()).isEqualTo(requestDto.getEmail());
+        Assertions.assertThat(person.getAddress().getValue()).isEqualTo(requestDto.getAddress());
+        Assertions.assertThat(person.getCompany()).isNull();
     }
 
     @Test
@@ -64,6 +68,9 @@ class PersonMapperTest {
 
         // then
         Assertions.assertThat(person.getName()).isEqualTo(responseDto.getName());
-        Assertions.assertThat(person.getCompany().getName()).isEqualTo(responseDto.getCompany());
+        Assertions.assertThat(person.getPhone().getValue()).isEqualTo(responseDto.getPhone());
+        Assertions.assertThat(person.getEmail().getValue()).isEqualTo(responseDto.getEmail());
+        Assertions.assertThat(person.getAddress().getValue()).isEqualTo(responseDto.getAddress());
+        Assertions.assertThat(person.getCompany()).isNull();
     }
 }
