@@ -1,18 +1,14 @@
 package com.hserp.company.domain;
 
-import com.hserp.global.domain.Address;
 import com.hserp.global.domain.CommonTime;
-import com.hserp.global.domain.Email;
-import com.hserp.global.domain.Phone;
-import com.hserp.global.domain.Remark;
 import com.hserp.person.domain.Person;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +20,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Getter
 @Entity
 public class Company extends CommonTime {
@@ -33,41 +30,43 @@ public class Company extends CommonTime {
     @Column(length = 32, nullable = false, unique = true)
     private String name;
 
-    @Embedded
-    private Phone phone;
+    @Column(length = 32, nullable = false)
+    private String phone;
 
-    @Embedded
-    private Email email;
+    @Column(length = 32, nullable = false)
+    private String email;
 
-    @Embedded
-    private Address address;
+    @Column(length = 128, nullable = false)
+    private String address;
 
-    @Embedded
-    private Remark remark;
+    @Column(length = 255, nullable = false)
+    private String remark;
 
     @OneToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "person_id", nullable = true)
     private Person manager;
 
     public void changeName(String newName) {
-        if(newName != null && !newName.equals(this.name)) {
+        if(newName != null) {
             this.name = newName;
         }
     }
 
-    public void changePhone(Phone newPhone) {
-        this.phone = newPhone;
+    public void changePhone(String newPhone) {
+        if(newPhone != null) {
+            this.phone = newPhone;
+        }
     }
 
-    public void changeEmail(Email newEmail) {
+    public void changeEmail(String newEmail) {
         this.email = newEmail;
     }
 
-    public void changeAddress(Address newAddress) {
+    public void changeAddress(String newAddress) {
         this.address = newAddress;
     }
 
-    public void changeRemark(Remark newRemark) {
+    public void changeRemark(String newRemark) {
         this.remark = newRemark;
     }
 

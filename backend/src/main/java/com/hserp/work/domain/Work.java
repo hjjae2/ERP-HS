@@ -1,9 +1,7 @@
 package com.hserp.work.domain;
 
 import com.hserp.company.domain.Company;
-import com.hserp.global.domain.Address;
 import com.hserp.global.domain.CommonTime;
-import com.hserp.global.domain.Remark;
 import com.hserp.person.domain.Person;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -41,11 +38,11 @@ public class Work extends CommonTime {
     @Column(name="is_communicator", nullable = false, columnDefinition = "default = 'N'")
     private Character communicator;
 
-    @Embedded
-    private Address address;
+    @Column(length = 128, nullable = true)
+    private String address;
 
-    @Embedded
-    private Remark remark;
+    @Column(length = 255, nullable = true)
+    private String remark;
 
     @Column(name="work_date", nullable = true)
     private LocalDate workDate;
@@ -102,16 +99,12 @@ public class Work extends CommonTime {
         this.workDate = newWorkDate;
     }
 
-    public void changeAddress(Address newAddress) {
-        if(newAddress != null && !newAddress.equals(this.address)) {
-            this.address = newAddress;
-        }
+    public void changeAddress(String newAddress) {
+        this.address = newAddress;
     }
 
-    public void changeRemark(Remark newRemark) {
-        if(newRemark != null && !newRemark.equals(this.remark)) {
-            this.remark = newRemark;
-        }
+    public void changeRemark(String newRemark) {
+        this.remark = newRemark;
     }
 
     public void changeCompany(Company newCompany) {

@@ -1,9 +1,5 @@
 package com.hserp;
 
-import com.hserp.global.domain.Address;
-import com.hserp.global.domain.Email;
-import com.hserp.global.domain.Phone;
-import com.hserp.global.domain.Remark;
 import com.hserp.company.domain.Company;
 import com.hserp.person.domain.Person;
 import com.hserp.work.domain.ExpenditureStatus;
@@ -36,20 +32,20 @@ public class CommonVariable {
         return 'N';
     }
 
-    public static Phone getPhone() {
-        return new Phone("010-1234-5678");
+    public static String getPhone() {
+        return "010-1234-5678";
     }
 
-    public static Address getAddress() {
-        return new Address("대왕판교로 660 유스페이스 A동 5층");
+    public static String getAddress() {
+        return "대왕판교로 660 유스페이스 A동 5층";
     }
 
-    public static Email getEmail() {
-        return new Email("hjjae2@gmail.com");
+    public static String getEmail() {
+        return "hjjae2@gmail.com";
     }
 
-    public static Remark getRemark() {
-        return new Remark("비고");
+    public static String getRemark() {
+        return "비고";
     }
 
     public static WorkType getWorkType() {

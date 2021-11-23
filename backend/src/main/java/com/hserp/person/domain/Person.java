@@ -1,18 +1,14 @@
 package com.hserp.person.domain;
 
-import com.hserp.global.domain.Address;
-import com.hserp.global.domain.CommonTime;
-import com.hserp.global.domain.Email;
-import com.hserp.global.domain.Phone;
-import com.hserp.global.domain.Remark;
 import com.hserp.company.domain.Company;
+import com.hserp.global.domain.CommonTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,6 +20,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 @Getter
 @Entity
 public class Person extends CommonTime {
@@ -33,41 +30,41 @@ public class Person extends CommonTime {
     @Column(length = 8, nullable = false, unique = true)
     private String name;
 
-    @Embedded
-    private Phone phone;
+    @Column(length = 32, nullable = false)
+    private String phone;
 
-    @Embedded
-    private Email email;
+    @Column(length = 32, nullable = false)
+    private String email;
 
-    @Embedded
-    private Address address;
+    @Column(length = 128, nullable = false)
+    private String address;
 
-    @Embedded
-    private Remark remark;
+    @Column(length = 255, nullable = false)
+    private String remark;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "company_id", nullable = true)
     private Company company;
 
     public void changeName(String newName) {
-        if(newName != null && !newName.equals(this.name)) {
+        if(newName != null) {
             this.name = newName;
         }
     }
 
-    public void changePhone(Phone newPhone) {
+    public void changePhone(String newPhone) {
         this.phone = newPhone;
     }
 
-    public void changeEmail(Email newEmail) {
+    public void changeEmail(String newEmail) {
         this.email = newEmail;
     }
 
-    public void changeAddress(Address newAddress) {
+    public void changeAddress(String newAddress) {
         this.address = newAddress;
     }
 
-    public void changeRemark(Remark newRemark) {
+    public void changeRemark(String newRemark) {
         this.remark = newRemark;
     }
 

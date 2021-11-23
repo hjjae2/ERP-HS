@@ -1,7 +1,6 @@
 package com.hserp.company.controller;
 
-import com.hserp.company.dto.CompanyRequestDto;
-import com.hserp.company.dto.CompanyResponseDto;
+import com.hserp.company.dto.CompanyDto;
 import com.hserp.company.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,28 +22,28 @@ public class CompanyController {
     private final CompanyService companyService;
 
     @PostMapping()
-    public int create(@RequestBody CompanyRequestDto companyRequestDto) throws Exception {
-        return companyService.create(companyRequestDto);
+    public CompanyDto.Create.ResponseDto create(@RequestBody CompanyDto.Create.RequestDto companyDto) {
+        return companyService.create(companyDto);
     }
 
     @GetMapping("/{company-id}")
-    public CompanyResponseDto read(@PathVariable("company-id") int companyId) {
+    public CompanyDto.Read.ResponseDto read(@PathVariable("company-id") int companyId) {
         return companyService.read(companyId);
     }
 
     @GetMapping()
-    public List<CompanyResponseDto> readAll() {
+    public List<CompanyDto.Read.ResponseDto> readAll() {
         return companyService.readAll();
     }
 
     @PutMapping("/{company-id}")
-    public boolean update(@PathVariable("company-id") Integer companyId,
-                          @RequestBody CompanyRequestDto companyRequestDto) throws Exception {
-        return companyService.update(companyId, companyRequestDto);
+    public CompanyDto.Update.ResponseDto update(@PathVariable("company-id") Integer companyId,
+                                                @RequestBody CompanyDto.Update.RequestDto requestDto) {
+        return companyService.update(companyId, requestDto);
     }
 
     @DeleteMapping("/{company-id}")
-    public boolean delete(@PathVariable("company-id") Integer companyId) throws Exception {
+    public boolean delete(@PathVariable("company-id") Integer companyId) {
         return companyService.delete(companyId);
     }
 }

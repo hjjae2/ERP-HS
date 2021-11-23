@@ -1,7 +1,6 @@
 package com.hserp.person.controller;
 
-import com.hserp.person.dto.PersonRequestDto;
-import com.hserp.person.dto.PersonResponseDto;
+import com.hserp.person.dto.PersonDto;
 import com.hserp.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,28 +22,28 @@ public class PersonController {
     private final PersonService personService;
 
     @PostMapping()
-    public int create(@RequestBody PersonRequestDto personRequestDto) throws Exception {
-        return personService.create(personRequestDto);
+    public PersonDto.Create.ResponseDto create(@RequestBody PersonDto.Create.RequestDto requestDto) {
+        return personService.create(requestDto);
     }
 
     @GetMapping("/{person-id}")
-    public PersonResponseDto read(@PathVariable("person-id") Integer personId) {
+    public PersonDto.Read.ResponseDto read(@PathVariable("person-id") int personId) {
         return personService.read(personId);
     }
 
     @GetMapping()
-    public List<PersonResponseDto> readAll() {
+    public List<PersonDto.Read.ResponseDto> readAll() {
         return personService.readAll();
     }
 
     @PutMapping("/{person-id}")
-    public boolean update(@PathVariable("person-id") Integer personId,
-                          @RequestBody PersonRequestDto personRequestDto) throws Exception {
-        return personService.update(personId, personRequestDto);
+    public PersonDto.Update.ResponseDto update(@PathVariable("person-id") Integer personId,
+                                               @RequestBody PersonDto.Update.RequestDto requestDto) {
+        return personService.update(personId, requestDto);
     }
 
     @DeleteMapping("/{person-id}")
-    public boolean delete(@PathVariable("person-id") Integer personId) throws Exception {
+    public boolean delete(@PathVariable("person-id") Integer personId) {
         return personService.delete(personId);
     }
 }
