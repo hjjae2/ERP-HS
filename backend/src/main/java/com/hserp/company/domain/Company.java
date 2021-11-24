@@ -46,31 +46,31 @@ public class Company extends CommonTime {
     @JoinColumn(name = "person_id", nullable = true)
     private Person manager;
 
-    public void changeName(String newName) {
+    private void changeName(String newName) {
         if(newName != null) {
             this.name = newName;
         }
     }
 
-    public void changePhone(String newPhone) {
+    private void changePhone(String newPhone) {
         if(newPhone != null) {
             this.phone = newPhone;
         }
     }
 
-    public void changeEmail(String newEmail) {
+    private void changeEmail(String newEmail) {
         this.email = newEmail;
     }
 
-    public void changeAddress(String newAddress) {
+    private void changeAddress(String newAddress) {
         this.address = newAddress;
     }
 
-    public void changeRemark(String newRemark) {
+    private void changeRemark(String newRemark) {
         this.remark = newRemark;
     }
 
-    public void changeManager(Person newManager) {
+    private void changeManager(Person newManager) {
         this.manager = newManager;
     }
 
