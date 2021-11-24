@@ -3,9 +3,9 @@ package com.hserp.work.domain;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-@Converter
 public class WorkConverter {
 
+    @Converter
     public static class WorkTypeConverter implements AttributeConverter<Work.WorkType, String> {
         @Override
         public String convertToDatabaseColumn(Work.WorkType attribute) {
@@ -18,6 +18,7 @@ public class WorkConverter {
         }
     }
 
+    @Converter
     public static class PaymentStatusConverter implements AttributeConverter<Work.PaymentStatus, String> {
         @Override
         public String convertToDatabaseColumn(Work.PaymentStatus attribute) {
@@ -30,6 +31,7 @@ public class WorkConverter {
         }
     }
 
+    @Converter
     public static class ExpenditureStatusConverter implements AttributeConverter<Work.ExpenditureStatus, String> {
         @Override
         public String convertToDatabaseColumn(Work.ExpenditureStatus attribute) {
@@ -42,6 +44,7 @@ public class WorkConverter {
         }
     }
 
+    @Converter
     public static class TaxStatusConverter implements AttributeConverter<Work.TaxStatus, String> {
         @Override
         public String convertToDatabaseColumn(Work.TaxStatus attribute) {

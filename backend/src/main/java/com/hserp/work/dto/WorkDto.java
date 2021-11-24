@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class WorkDto {
 
@@ -37,10 +38,10 @@ public class WorkDto {
             private Character communicator;
 
             public Work toEntity(Person worker, Person dispatcher, Company company, Company customer) {
-                Work.WorkType workType = Work.WorkType.getByName(this.workType);
-                Work.PaymentStatus paymentStatus = Work.PaymentStatus.getByName(this.paymentStatus);
-                Work.ExpenditureStatus expenditureStatus = Work.ExpenditureStatus.getByName(this.expenditureStatus);
-                Work.TaxStatus taxStatus = Work.TaxStatus.getByName(this.taxStatus);
+                Work.WorkType workType = Work.WorkType.getByValue(this.workType);
+                Work.PaymentStatus paymentStatus = Work.PaymentStatus.getByValue(this.paymentStatus);
+                Work.ExpenditureStatus expenditureStatus = Work.ExpenditureStatus.getByValue(this.expenditureStatus);
+                Work.TaxStatus taxStatus = Work.TaxStatus.getByValue(this.taxStatus);
 
                 return Work.builder()
                         .workDate(workDate)
@@ -84,14 +85,19 @@ public class WorkDto {
             private Character communicator;
 
             public static ResponseDto of(Work work) {
+                String worker = Objects.isNull(work.getWorker()) ? null : work.getWorker().getName();
+                String company = Objects.isNull(work.getCompany()) ? null : work.getCompany().getName();
+                String customer = Objects.isNull(work.getCustomer()) ? null : work.getCustomer().getName();
+                String dispatcher = Objects.isNull(work.getDispatcher()) ? null : work.getDispatcher().getName();
+
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
                         .workType(work.getWorkType().name())
-                        .worker(work.getWorker().getName())
-                        .company(work.getCompany().getName())
-                        .customer(work.getCustomer().getName())
-                        .dispatcher(work.getDispatcher().getName())
+                        .worker(worker)
+                        .company(company)
+                        .customer(customer)
+                        .dispatcher(dispatcher)
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
@@ -130,14 +136,19 @@ public class WorkDto {
             private Character communicator;
 
             public static ResponseDto of(Work work) {
+                String worker = Objects.isNull(work.getWorker()) ? null : work.getWorker().getName();
+                String company = Objects.isNull(work.getCompany()) ? null : work.getCompany().getName();
+                String customer = Objects.isNull(work.getCustomer()) ? null : work.getCustomer().getName();
+                String dispatcher = Objects.isNull(work.getDispatcher()) ? null : work.getDispatcher().getName();
+
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
                         .workType(work.getWorkType().name())
-                        .worker(work.getWorker().getName())
-                        .company(work.getCompany().getName())
-                        .customer(work.getCustomer().getName())
-                        .dispatcher(work.getDispatcher().getName())
+                        .worker(worker)
+                        .company(company)
+                        .customer(customer)
+                        .dispatcher(dispatcher)
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
@@ -175,10 +186,10 @@ public class WorkDto {
             private Character communicator;
 
             public Work toEntity(Person worker, Person dispatcher, Company company, Company customer) {
-                Work.WorkType workType = Work.WorkType.getByName(this.workType);
-                Work.PaymentStatus paymentStatus = Work.PaymentStatus.getByName(this.paymentStatus);
-                Work.ExpenditureStatus expenditureStatus = Work.ExpenditureStatus.getByName(this.expenditureStatus);
-                Work.TaxStatus taxStatus = Work.TaxStatus.getByName(this.taxStatus);
+                Work.WorkType workType = Work.WorkType.getByValue(this.workType);
+                Work.PaymentStatus paymentStatus = Work.PaymentStatus.getByValue(this.paymentStatus);
+                Work.ExpenditureStatus expenditureStatus = Work.ExpenditureStatus.getByValue(this.expenditureStatus);
+                Work.TaxStatus taxStatus = Work.TaxStatus.getByValue(this.taxStatus);
 
                 return Work.builder()
                         .workDate(workDate)
@@ -222,14 +233,19 @@ public class WorkDto {
             private Character communicator;
 
             public static ResponseDto of(Work work) {
+                String worker = Objects.isNull(work.getWorker()) ? null : work.getWorker().getName();
+                String company = Objects.isNull(work.getCompany()) ? null : work.getCompany().getName();
+                String customer = Objects.isNull(work.getCustomer()) ? null : work.getCustomer().getName();
+                String dispatcher = Objects.isNull(work.getDispatcher()) ? null : work.getDispatcher().getName();
+
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
                         .workType(work.getWorkType().name())
-                        .worker(work.getWorker().getName())
-                        .company(work.getCompany().getName())
-                        .customer(work.getCustomer().getName())
-                        .dispatcher(work.getDispatcher().getName())
+                        .worker(worker)
+                        .company(company)
+                        .customer(customer)
+                        .dispatcher(dispatcher)
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())

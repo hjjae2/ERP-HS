@@ -55,6 +55,7 @@ public class PersonDto {
 
             public static ResponseDto of(Person person) {
                 String company = (person.getCompany() == null) ? null : person.getCompany().getName();
+
                 return ResponseDto.builder()
                         .id(person.getId())
                         .name(person.getName())

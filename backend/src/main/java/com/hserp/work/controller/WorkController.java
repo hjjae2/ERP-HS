@@ -45,7 +45,7 @@ public class WorkController {
     }
 
     @DeleteMapping("/{work-id}")
-    public boolean delete(@PathVariable int workId) {
+    public boolean delete(@PathVariable("work-id") int workId) {
         return workService.delete(workId);
     }
 }

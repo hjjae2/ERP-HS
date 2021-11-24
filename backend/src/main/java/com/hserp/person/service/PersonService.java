@@ -30,7 +30,7 @@ public class PersonService {
         }
 
         Person person = requestDto.toEntity(company);
-        return PersonDto.Create.ResponseDto.of(person);
+        return PersonDto.Create.ResponseDto.of(personRepository.save(person));
     }
 
     public PersonDto.Read.ResponseDto read(int id) {
