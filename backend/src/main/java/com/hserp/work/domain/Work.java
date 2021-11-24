@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -26,6 +29,7 @@ import java.util.Objects;
 @Getter
 @Entity
 public class Work extends CommonTime {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -47,8 +51,8 @@ public class Work extends CommonTime {
     @Column(name="work_date", nullable = true)
     private LocalDate workDate;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "work_type_id", nullable = false)
+    @Convert(converter = WorkConverter.WorkTypeConverter.class)
+    @Column(name="work_type", nullable = false)
     private WorkType workType;
 
     @OneToOne(fetch = FetchType.LAZY, optional = true)
@@ -67,81 +71,75 @@ public class Work extends CommonTime {
     @JoinColumn(name = "customer_id", nullable = true)
     private Company customer;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "payment_status_id", nullable = false)
+    @Convert(converter = WorkConverter.PaymentStatusConverter.class)
+    @Column(name="payment_status", nullable = false)
     private PaymentStatus paymentStatus;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "expenditure_status_id", nullable = false)
+    @Convert(converter = WorkConverter.ExpenditureStatusConverter.class)
+    @Column(name="expenditure_status", nullable = false)
     private ExpenditureStatus expenditureStatus;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "tax_status_id", nullable = false)
+    @Convert(converter = WorkConverter.TaxStatusConverter.class)
+    @Column(name="tax_status", nullable = false)
     private TaxStatus taxStatus;
 
-    public void changeContent(String newContent) {
+    private void changeContent(String newContent) {
         this.content = newContent;
     }
 
-    public void changePrice(Integer price) {
+    private void changePrice(Integer price) {
         this.price = price;
     }
 
-    public void changeCommunicatorToYes() {
+    private void changeCommunicatorToYes() {
         this.communicator = 'Y';
     }
 
-    public void changeCommunicatorToNo() {
+    private void changeCommunicatorToNo() {
         this.communicator = 'N';
     }
 
-    public void changeWorkDate(LocalDate newWorkDate) {
+    private void changeWorkDate(LocalDate newWorkDate) {
         this.workDate = newWorkDate;
     }
 
-    public void changeAddress(String newAddress) {
+    private void changeAddress(String newAddress) {
         this.address = newAddress;
     }
 
-    public void changeRemark(String newRemark) {
+    private void changeRemark(String newRemark) {
         this.remark = newRemark;
     }
 
-    public void changeCompany(Company newCompany) {
+    private void changeCompany(Company newCompany) {
         this.company = newCompany;
     }
 
-    public void changeCustomer(Company newCustomer) {
+    private void changeCustomer(Company newCustomer) {
         this.customer = newCustomer;
     }
 
-    public void changeWorker(Person newWorker) {
+    private void changeWorker(Person newWorker) {
         this.worker = newWorker;
     }
 
-    public void changeDispatcher(Person newDispatcher) {
+    private void changeDispatcher(Person newDispatcher) {
         this.dispatcher = newDispatcher;
     }
 
-    public void changeWorkType(WorkType newWorkType) {
-        if(newWorkType != null && !newWorkType.equals(this.workType)) {
-            this.workType = newWorkType;
-        }
+    private void changeWorkType(WorkType workType) {
+        this.workType = workType;
     }
 
-    public void changePaymentStatus(PaymentStatus newPaymentStatus) {
-        if(newPaymentStatus != null && !newPaymentStatus.equals(this.paymentStatus)) {
-            this.paymentStatus = newPaymentStatus;
-        }
+    private void changePaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
-    public void changeExpenditureStatus(ExpenditureStatus newExpenditureStatus) {
-        if(newExpenditureStatus != null && !newExpenditureStatus.equals(this.expenditureStatus)) {
-            this.expenditureStatus = newExpenditureStatus;
-        }
+    private void changeExpenditureStatus(ExpenditureStatus expenditureStatus) {
+        this.expenditureStatus = expenditureStatus;
     }
 
-    public void changeTaxStatus(TaxStatus newTaxStatus) {
+    private void changeTaxStatus(TaxStatus newTaxStatus) {
         if(newTaxStatus != null && !newTaxStatus.equals(this.taxStatus)) {
             this.taxStatus = newTaxStatus;
         }
@@ -198,5 +196,159 @@ public class Work extends CommonTime {
     @Override
     public int hashCode() {
         return Objects.hash(content, price, address, communicator, remark, workDate, workType, worker, dispatcher, company, customer, paymentStatus, expenditureStatus, taxStatus);
+    }
+
+    public enum WorkType {
+        NORMAL("일반"),
+        EXPENDITURE("지출"),
+        EXPENSE("비용");
+
+        private String value;
+
+        static final Map<String, WorkType> nameMap = new HashMap<>();
+        static final Map<String, WorkType> valueMap = new HashMap<>();
+        static {
+            for(WorkType workType : WorkType.values()) {
+                nameMap.put(workType.name(), workType);
+                valueMap.put(workType.value, workType);
+            }
+        }
+
+        WorkType(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return this.value;
+        }
+
+        public static WorkType getByName(String name) {
+            if(!nameMap.containsKey(name)) {
+                return null;
+            }
+            return nameMap.get(name);
+        }
+
+        public static WorkType getByValue(String value) {
+            if(!valueMap.containsKey(value)) {
+                return null;
+            }
+            return valueMap.get(value);
+        }
+    }
+
+    public enum PaymentStatus {
+        COMPLETION("완료"),
+        PARTIAL_COMPLETION("부분완료"),
+        INCOMPLETION("미완료");
+
+        private String value;
+
+        static final Map<String, PaymentStatus> nameMap = new HashMap<>();
+        static final Map<String, PaymentStatus> valueMap = new HashMap<>();
+        static {
+            for(PaymentStatus paymentStatus : PaymentStatus.values()) {
+                nameMap.put(paymentStatus.name(), paymentStatus);
+                valueMap.put(paymentStatus.value, paymentStatus);
+            }
+        }
+
+        PaymentStatus(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return this.value;
+        }
+
+        public static PaymentStatus getByName(String name) {
+            if(!nameMap.containsKey(name)) {
+                return null;
+            }
+            return nameMap.get(name);
+        }
+
+        public static PaymentStatus getByValue(String value) {
+            if(!valueMap.containsKey(value)) {
+                return null;
+            }
+            return valueMap.get(value);
+        }
+    }
+
+    public enum ExpenditureStatus {
+        COMPLETION("완료"),
+        PARTIAL_COMPLETION("부분완료"),
+        INCOMPLETION("미완료");
+
+        private String value;
+
+        static final Map<String, ExpenditureStatus> nameMap = new HashMap<>();
+        static final Map<String, ExpenditureStatus> valueMap = new HashMap<>();
+        static {
+            for(ExpenditureStatus expenditureStatus : ExpenditureStatus.values()) {
+                nameMap.put(expenditureStatus.name(), expenditureStatus);
+                valueMap.put(expenditureStatus.value, expenditureStatus);
+            }
+        }
+
+        ExpenditureStatus(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return this.value;
+        }
+
+        public static ExpenditureStatus getByName(String name) {
+            if(!nameMap.containsKey(name)) {
+                return null;
+            }
+            return nameMap.get(name);
+        }
+
+        public static ExpenditureStatus getByValue(String value) {
+            if(!valueMap.containsKey(value)) {
+                return null;
+            }
+            return valueMap.get(value);
+        }
+    }
+
+    public enum TaxStatus {
+        COMPLETION("발급완료"),
+        INCOMPLETION("발급미완료");
+
+        private String value;
+
+        static final Map<String, TaxStatus> nameMap = new HashMap<>();
+        static final Map<String, TaxStatus> valueMap = new HashMap<>();
+        static {
+            for(TaxStatus taxStatus : TaxStatus.values()) {
+                valueMap.put(taxStatus.value, taxStatus);
+            }
+        }
+
+        TaxStatus(String value) {
+            this.value = value;
+        }
+
+        public String value() {
+            return this.value;
+        }
+
+        public static TaxStatus getByName(String name) {
+            if(!nameMap.containsKey(name)) {
+                return null;
+            }
+            return nameMap.get(name);
+        }
+
+        public static TaxStatus getByValue(String value) {
+            if(!valueMap.containsKey(value)) {
+                return null;
+            }
+            return valueMap.get(value);
+        }
     }
 }

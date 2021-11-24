@@ -1,5 +1,7 @@
 package com.hserp.work.dto;
 
+import com.hserp.company.domain.Company;
+import com.hserp.person.domain.Person;
 import com.hserp.work.domain.Work;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,12 +36,25 @@ public class WorkDto {
             private Integer price;
             private Character communicator;
 
-            public Work toEntity() {
+            public Work toEntity(Person worker, Person dispatcher, Company company, Company customer) {
+                Work.WorkType workType = Work.WorkType.getByName(this.workType);
+                Work.PaymentStatus paymentStatus = Work.PaymentStatus.getByName(this.paymentStatus);
+                Work.ExpenditureStatus expenditureStatus = Work.ExpenditureStatus.getByName(this.expenditureStatus);
+                Work.TaxStatus taxStatus = Work.TaxStatus.getByName(this.taxStatus);
+
                 return Work.builder()
                         .workDate(workDate)
                         .address(address)
                         .content(content)
                         .remark(remark)
+                        .workType(workType)
+                        .worker(worker)
+                        .company(company)
+                        .customer(customer)
+                        .dispatcher(dispatcher)
+                        .paymentStatus(paymentStatus)
+                        .expenditureStatus(expenditureStatus)
+                        .taxStatus(taxStatus)
                         .price(price)
                         .communicator(communicator)
                         .build();
@@ -72,7 +87,7 @@ public class WorkDto {
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
-                        .workType(work.getWorkType().getName())
+                        .workType(work.getWorkType().name())
                         .worker(work.getWorker().getName())
                         .company(work.getCompany().getName())
                         .customer(work.getCustomer().getName())
@@ -80,9 +95,9 @@ public class WorkDto {
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
-                        .paymentStatus(work.getPaymentStatus().getName())
-                        .expenditureStatus(work.getExpenditureStatus().getName())
-                        .taxStatus(work.getTaxStatus().getName())
+                        .paymentStatus(work.getPaymentStatus().name())
+                        .expenditureStatus(work.getExpenditureStatus().name())
+                        .taxStatus(work.getTaxStatus().name())
                         .price(work.getPrice())
                         .communicator(work.getCommunicator())
                         .build();
@@ -118,7 +133,7 @@ public class WorkDto {
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
-                        .workType(work.getWorkType().getName())
+                        .workType(work.getWorkType().name())
                         .worker(work.getWorker().getName())
                         .company(work.getCompany().getName())
                         .customer(work.getCustomer().getName())
@@ -126,9 +141,9 @@ public class WorkDto {
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
-                        .paymentStatus(work.getPaymentStatus().getName())
-                        .expenditureStatus(work.getExpenditureStatus().getName())
-                        .taxStatus(work.getTaxStatus().getName())
+                        .paymentStatus(work.getPaymentStatus().name())
+                        .expenditureStatus(work.getExpenditureStatus().name())
+                        .taxStatus(work.getTaxStatus().name())
                         .price(work.getPrice())
                         .communicator(work.getCommunicator())
                         .build();
@@ -159,12 +174,25 @@ public class WorkDto {
             private Integer price;
             private Character communicator;
 
-            public Work toEntity() {
+            public Work toEntity(Person worker, Person dispatcher, Company company, Company customer) {
+                Work.WorkType workType = Work.WorkType.getByName(this.workType);
+                Work.PaymentStatus paymentStatus = Work.PaymentStatus.getByName(this.paymentStatus);
+                Work.ExpenditureStatus expenditureStatus = Work.ExpenditureStatus.getByName(this.expenditureStatus);
+                Work.TaxStatus taxStatus = Work.TaxStatus.getByName(this.taxStatus);
+
                 return Work.builder()
                         .workDate(workDate)
                         .address(address)
                         .content(content)
                         .remark(remark)
+                        .workType(workType)
+                        .worker(worker)
+                        .company(company)
+                        .customer(customer)
+                        .dispatcher(dispatcher)
+                        .paymentStatus(paymentStatus)
+                        .expenditureStatus(expenditureStatus)
+                        .taxStatus(taxStatus)
                         .price(price)
                         .communicator(communicator)
                         .build();
@@ -197,7 +225,7 @@ public class WorkDto {
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
-                        .workType(work.getWorkType().getName())
+                        .workType(work.getWorkType().name())
                         .worker(work.getWorker().getName())
                         .company(work.getCompany().getName())
                         .customer(work.getCustomer().getName())
@@ -205,9 +233,9 @@ public class WorkDto {
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
-                        .paymentStatus(work.getPaymentStatus().getName())
-                        .expenditureStatus(work.getExpenditureStatus().getName())
-                        .taxStatus(work.getTaxStatus().getName())
+                        .paymentStatus(work.getPaymentStatus().name())
+                        .expenditureStatus(work.getExpenditureStatus().name())
+                        .taxStatus(work.getTaxStatus().name())
                         .price(work.getPrice())
                         .communicator(work.getCommunicator())
                         .build();
