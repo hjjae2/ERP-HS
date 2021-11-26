@@ -502,7 +502,11 @@ export default {
     initOptions() {
       if (Array.isArray(this.works)) {
         this.works.forEach((work) => {
-          if (this.workDateOptions.filter((workDateOption) => workDateOption.value === work.workDate) === 0) {
+          if (
+            work.workDate &&
+            this.workDateOptions.filter((workDateOption) => workDateOption.value === work.workDate).length ===
+              0
+          ) {
             this.workDateOptions.push({
               value: work.workDate,
               label: work.workDate,
@@ -510,7 +514,11 @@ export default {
             });
           }
 
-          if (this.customerOptions.filter((customerOption) => customerOption.value === work.customer) === 0) {
+          if (
+            work.customer &&
+            this.customerOptions.filter((customerOption) => customerOption.value === work.customer).length ===
+              0
+          ) {
             this.customerOptions.push({
               value: work.customer,
               label: work.customer,
@@ -518,7 +526,11 @@ export default {
             });
           }
 
-          if (this.workerOptions.filter((workerOption) => workerOption.value === work.worker) === 0) {
+          if (
+            work.worker &&
+            this.workerOptions.filter((workerOption) => workerOption.value === work.worker).length === 0
+          ) {
+            console.log(work);
             this.workerOptions.push({
               value: work.worker,
               label: work.worker,
@@ -527,9 +539,9 @@ export default {
           }
 
           if (
-            this.dispatcherOptions.filter(
-              (dispatcherOption) => dispatcherOption.value === work.dispatcher
-            ) === 0
+            work.dispatcher &&
+            this.dispatcherOptions.filter((dispatcherOption) => dispatcherOption.value === work.dispatcher)
+              .length === 0
           ) {
             this.dispatcherOptions.push({
               value: work.dispatcher,
@@ -538,7 +550,10 @@ export default {
             });
           }
 
-          if (this.addressOptions.filter((addressOption) => addressOption.value === work.address) === 0) {
+          if (
+            work.address &&
+            this.addressOptions.filter((addressOption) => addressOption.value === work.address).length === 0
+          ) {
             this.addressOptions.push({
               value: work.address,
               label: work.address,
@@ -546,7 +561,10 @@ export default {
             });
           }
 
-          if (this.priceOptions.filter((priceOption) => priceOption.value === work.price) === 0) {
+          if (
+            work.price &&
+            this.priceOptions.filter((priceOption) => priceOption.value === work.price).length === 0
+          ) {
             this.priceOptions.push({
               value: work.price,
               label: work.price,
@@ -725,6 +743,7 @@ export default {
     },
     filterHandler(value, row, column) {
       const property = column.property;
+
       return row[property] === value;
     },
     clearFilter() {

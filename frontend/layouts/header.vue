@@ -23,10 +23,6 @@
           <i class="el-icon-user"></i>
           <span>작업자/거래인 관리</span>
         </el-menu-item>
-        <el-menu-item index="4" route="admin">
-          <i class="el-icon-setting"></i>
-          <span>관리자 메뉴</span>
-        </el-menu-item>
       </el-menu>
     </el-col>
   </el-row>
