@@ -2,12 +2,7 @@ package com.hserp;
 
 import com.hserp.company.domain.Company;
 import com.hserp.person.domain.Person;
-import com.hserp.work.domain.ExpenditureStatus;
-import com.hserp.work.domain.PaymentStatus;
-import com.hserp.work.domain.TaxStatus;
 import com.hserp.work.domain.Work;
-import com.hserp.work.domain.WorkStatus;
-import com.hserp.work.domain.WorkType;
 
 import java.time.LocalDate;
 
@@ -48,24 +43,20 @@ public class CommonVariable {
         return "비고";
     }
 
-    public static WorkType getWorkType() {
-        return new WorkType(null, "일반");
+    public static Work.WorkType getWorkType() {
+        return Work.WorkType.NORMAL;
     }
 
-    public static WorkStatus getWorkStatus() {
-        return new WorkStatus(null, "미완료");
+    public static Work.PaymentStatus getPaymentStatus() {
+        return Work.PaymentStatus.COMPLETION;
     }
 
-    public static PaymentStatus getPaymentStatus() {
-        return new PaymentStatus(null, "미완료");
+    public static Work.ExpenditureStatus getExpenditureStatus() {
+        return Work.ExpenditureStatus.COMPLETION;
     }
 
-    public static ExpenditureStatus getExpenditureStatus() {
-        return new ExpenditureStatus(null, "미완료");
-    }
-
-    public static TaxStatus getTaxStatus() {
-        return new TaxStatus(null, "발급미완료");
+    public static Work.TaxStatus getTaxStatus() {
+        return Work.TaxStatus.COMPLETION;
     }
 
     public static Person getPerson() {

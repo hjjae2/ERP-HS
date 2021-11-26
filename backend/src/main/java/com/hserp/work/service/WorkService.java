@@ -61,24 +61,24 @@ public class WorkService {
     }
 
     @Transactional
-    public WorkDto.Update.ResponseDto update(Integer id, WorkDto.Update.RequestDto workDto) {
+    public WorkDto.Update.ResponseDto update(Integer id, WorkDto.Update.RequestDto requestDto) {
         Person worker = null;
         Person dispatcher = null;
         Company company = null;
         Company customer = null;
-        if(workDto.getWorker() != null && !workDto.getWorker().isEmpty()) {
-            worker = personRepository.findByName(workDto.getWorker()).orElseThrow(EntityNotFoundException::new);
+        if(requestDto.getWorker() != null && !requestDto.getWorker().isEmpty()) {
+            worker = personRepository.findByName(requestDto.getWorker()).orElseThrow(EntityNotFoundException::new);
         }
-        if(workDto.getDispatcher() != null && !workDto.getDispatcher().isEmpty()) {
-            dispatcher = personRepository.findByName(workDto.getDispatcher()).orElseThrow(EntityNotFoundException::new);
+        if(requestDto.getDispatcher() != null && !requestDto.getDispatcher().isEmpty()) {
+            dispatcher = personRepository.findByName(requestDto.getDispatcher()).orElseThrow(EntityNotFoundException::new);
         }
-        if(workDto.getCompany() != null && !workDto.getCompany().isEmpty()) {
-            company = companyRepository.findByName(workDto.getCompany()).orElseThrow(EntityNotFoundException::new);
+        if(requestDto.getCompany() != null && !requestDto.getCompany().isEmpty()) {
+            company = companyRepository.findByName(requestDto.getCompany()).orElseThrow(EntityNotFoundException::new);
         }
-        if(workDto.getCustomer() != null && !workDto.getCustomer().isEmpty()) {
-            customer = companyRepository.findByName(workDto.getCustomer()).orElseThrow(EntityNotFoundException::new);
+        if(requestDto.getCustomer() != null && !requestDto.getCustomer().isEmpty()) {
+            customer = companyRepository.findByName(requestDto.getCustomer()).orElseThrow(EntityNotFoundException::new);
         }
-        Work newWork = workDto.toEntity(worker, dispatcher, company, customer);
+        Work newWork = requestDto.toEntity(worker, dispatcher, company, customer);
 
         Work work = workRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         work.changeTo(newWork);

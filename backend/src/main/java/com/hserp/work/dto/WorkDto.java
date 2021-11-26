@@ -93,7 +93,7 @@ public class WorkDto {
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
-                        .workType(work.getWorkType().name())
+                        .workType(work.getWorkType().value())
                         .worker(worker)
                         .company(company)
                         .customer(customer)
@@ -101,9 +101,9 @@ public class WorkDto {
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
-                        .paymentStatus(work.getPaymentStatus().name())
-                        .expenditureStatus(work.getExpenditureStatus().name())
-                        .taxStatus(work.getTaxStatus().name())
+                        .paymentStatus(work.getPaymentStatus().value())
+                        .expenditureStatus(work.getExpenditureStatus().value())
+                        .taxStatus(work.getTaxStatus().value())
                         .price(work.getPrice())
                         .communicator(work.getCommunicator())
                         .build();
@@ -144,7 +144,7 @@ public class WorkDto {
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
-                        .workType(work.getWorkType().name())
+                        .workType(work.getWorkType().value())
                         .worker(worker)
                         .company(company)
                         .customer(customer)
@@ -152,9 +152,9 @@ public class WorkDto {
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
-                        .paymentStatus(work.getPaymentStatus().name())
-                        .expenditureStatus(work.getExpenditureStatus().name())
-                        .taxStatus(work.getTaxStatus().name())
+                        .paymentStatus(work.getPaymentStatus().value())
+                        .expenditureStatus(work.getExpenditureStatus().value())
+                        .taxStatus(work.getTaxStatus().value())
                         .price(work.getPrice())
                         .communicator(work.getCommunicator())
                         .build();
@@ -170,6 +170,7 @@ public class WorkDto {
         @Builder
         @Getter
         public static class RequestDto {
+            private Integer id;
             private LocalDate workDate;
             private String workType;
             private String worker;
@@ -241,7 +242,7 @@ public class WorkDto {
                 return ResponseDto.builder()
                         .id(work.getId())
                         .workDate(work.getWorkDate())
-                        .workType(work.getWorkType().name())
+                        .workType(work.getWorkType().value())
                         .worker(worker)
                         .company(company)
                         .customer(customer)
@@ -249,9 +250,9 @@ public class WorkDto {
                         .address(work.getAddress())
                         .content(work.getContent())
                         .remark(work.getRemark())
-                        .paymentStatus(work.getPaymentStatus().name())
-                        .expenditureStatus(work.getExpenditureStatus().name())
-                        .taxStatus(work.getTaxStatus().name())
+                        .paymentStatus(work.getPaymentStatus().value())
+                        .expenditureStatus(work.getExpenditureStatus().value())
+                        .taxStatus(work.getTaxStatus().value())
                         .price(work.getPrice())
                         .communicator(work.getCommunicator())
                         .build();
