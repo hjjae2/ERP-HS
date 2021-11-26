@@ -2,6 +2,7 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
+  mode: 'spa',
 
   env: {
     baseUrl: process.env.API_URL || 'http://localhost:8080'

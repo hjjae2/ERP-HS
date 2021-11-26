@@ -33,7 +33,6 @@
 
       <!-- 테이블 상단 버튼 레이어 -->
       <el-row type="flex" justify="end">
-        <el-button plain @click="saveAll">전체 내용 저장</el-button>
         <el-button plain @click="addRow">내용 추가</el-button>
         <el-button plain @click="clearFilter">필터 초기화</el-button>
       </el-row>
@@ -45,6 +44,7 @@
       <el-table
         ref="mainTable"
         show-summary
+        :summary-method="getSummaries"
         :data="
           works.filter((work) => {
             if (!searchValue) {
@@ -53,7 +53,10 @@
             return work[searchColumn] && work[searchColumn].toLowerCase().includes(searchValue.toLowerCase());
           })
         "
+        :max-height="tableMaxHeight"
       >
+        <el-table-column prop="id" label="No" sortable> </el-table-column>
+
         <el-table-column
           prop="workDate"
           label="날짜"
@@ -67,6 +70,7 @@
               size="small"
               style="text-align: center"
               controls-position="right"
+              @change="saveOrUpdateRow(scope.row)"
             ></el-input>
           </template>
         </el-table-column>
@@ -79,7 +83,12 @@
           :filter-method="filterHandler"
         >
           <template slot-scope="scope">
-            <el-select v-model="scope.row.workType" :default-first-option="true" placeholder="구분">
+            <el-select
+              v-model="scope.row.workType"
+              :default-first-option="true"
+              placeholder="구분"
+              @change="saveOrUpdateRow(scope.row)"
+            >
               <el-option
                 v-for="item in workTypeOptions"
                 :key="item.value"
@@ -100,7 +109,12 @@
           filter-placement="bottom-end"
         >
           <template slot-scope="scope">
-            <el-select v-model="scope.row.company" :default-first-option="true" placeholder="우리사업자">
+            <el-select
+              v-model="scope.row.company"
+              :default-first-option="true"
+              placeholder="우리사업자"
+              @change="saveOrUpdateRow(scope.row)"
+            >
               <el-option
                 v-for="item in companyOptions"
                 :key="item.value"
@@ -213,7 +227,12 @@
           filter-placement="bottom-end"
         >
           <template slot-scope="scope">
-            <el-select v-model="scope.row.paymentStatus" :default-first-option="true" placeholder="결제상태">
+            <el-select
+              v-model="scope.row.paymentStatus"
+              :default-first-option="true"
+              placeholder="결제상태"
+              @change="saveOrUpdateRow(scope.row)"
+            >
               <el-option
                 v-for="item in paymentStatusOptions"
                 :key="item.value"
@@ -237,6 +256,7 @@
               v-model="scope.row.expenditureStatus"
               :default-first-option="true"
               placeholder="지출상태"
+              @change="saveOrUpdateRow(scope.row)"
             >
               <el-option
                 v-for="item in expenditureStatusOptions"
@@ -258,7 +278,12 @@
           filter-placement="bottom-end"
         >
           <template slot-scope="scope">
-            <el-select v-model="scope.row.taxStatus" :default-first-option="true" placeholder="세금계산서">
+            <el-select
+              v-model="scope.row.taxStatus"
+              :default-first-option="true"
+              placeholder="세금계산서"
+              @change="saveOrUpdateRow(scope.row)"
+            >
               <el-option
                 v-for="item in taxStatusOptions"
                 :key="item.value"
@@ -279,7 +304,12 @@
           filter-placement="bottom-end"
         >
           <template slot-scope="scope">
-            <el-select v-model="scope.row.communicator" :default-first-option="true" placeholder="일반/통신">
+            <el-select
+              v-model="scope.row.communicator"
+              :default-first-option="true"
+              placeholder="일반/통신"
+              @change="saveOrUpdateRow(scope.row)"
+            >
               <el-option
                 v-for="item in communicatorOptions"
                 :key="item.value"
@@ -343,7 +373,6 @@
 
       <!-- 테이블 하단 버튼 레이어 -->
       <el-row type="flex" justify="end">
-        <el-button plain @click="saveAll">전체 내용 저장</el-button>
         <el-button plain @click="addRow">내용 추가</el-button>
         <el-button plain @click="clearFilter">필터 초기화</el-button>
       </el-row>
@@ -370,7 +399,10 @@ export default {
       companies: [],
       workDateOptions: [],
       workTypeOptions: [],
-      companyOptions: [],
+      companyOptions: [
+        { value: '화성스카이차', label: '화성스카이차', text: '화성스카이차' },
+        { value: '화성스카이', label: '화성스카이', text: '화성스카이' },
+      ],
       customerOptions: [],
       workerOptions: [],
       dispatcherOptions: [],
@@ -404,6 +436,16 @@ export default {
         { value: 'remark', label: '비고' },
       ],
     };
+  },
+  computed: {
+    tableMaxHeight() {
+      const windowHeight =
+        (window && window.innerHeight) ||
+        (document && document.documentElement.clientHeight) ||
+        (document && document.body.clientHeight);
+
+      return windowHeight ? windowHeight * 0.6 : -1;
+    },
   },
   created() {
     this.initList();
@@ -459,11 +501,6 @@ export default {
     },
     initOptions() {
       if (Array.isArray(this.works)) {
-        this.companyOptions.push(
-          { value: '화성스카이차', label: '화성스카이차', text: '화성스카이차' },
-          { value: '화성스카이', label: '화성스카이', text: '화성스카이' }
-        );
-
         this.works.forEach((work) => {
           if (this.workDateOptions.filter((workDateOption) => workDateOption.value === work.workDate) === 0) {
             this.workDateOptions.push({
@@ -584,14 +621,6 @@ export default {
       };
       this.works.push(newRow);
     },
-    saveAll() {
-      // 1. call api to save all
-      // 1-1. 새롭게 생긴 item 만 save?
-      // 업데이트 된 게 있을 수 있음.
-      // 1-2. all item save?
-      // 1-3. 단건 save vs list save
-      console.log(JSON.stringify(this.works));
-    },
     saveOrUpdateRow(row) {
       if (row.id === 'new') {
         this.saveRow(row);
@@ -625,6 +654,60 @@ export default {
       } catch (error) {
         this.occurError('데이터 삭제 중 오류가 발생하였습니다.');
       }
+    },
+    getSummaries(param) {
+      const { columns, data } = param;
+      const sums = [];
+
+      columns.forEach((column, index) => {
+        if (column.property === 'id') {
+          sums[index] = '총 ' + data.length + ' 건';
+        }
+
+        if (column.property === 'price') {
+          const prices = data.map((item) => Number(item[column.property]));
+          const priceSum = prices.reduce((acc, cur) => {
+            return acc + cur;
+          }, 0);
+          sums[index] = priceSum.toLocaleString() + ' 원';
+        }
+
+        if (column.property === 'paymentStatus') {
+          const statuses = data.map((item) => item[column.property]);
+          const completion = statuses.filter((status) => status === '완료').length;
+          const incompletion = statuses.filter((status) => status === '미완료').length;
+          const partialCompletion = statuses.filter((status) => status === '부분완료').length;
+
+          sums[index] = completion + ' / ' + incompletion + ' / ' + partialCompletion;
+        }
+
+        if (column.property === 'expenditureStatus') {
+          const statuses = data.map((item) => item[column.property]);
+          const completion = statuses.filter((status) => status === '완료').length;
+          const incompletion = statuses.filter((status) => status === '미완료').length;
+          const partialCompletion = statuses.filter((status) => status === '부분완료').length;
+
+          sums[index] = completion + ' / ' + incompletion + ' / ' + partialCompletion;
+        }
+
+        if (column.property === 'taxStatus') {
+          const statuses = data.map((item) => item[column.property]);
+          const completion = statuses.filter((status) => status === '발급완료').length;
+          const incompletion = statuses.filter((status) => status === '발급미완료').length;
+
+          sums[index] = completion + ' / ' + incompletion;
+        }
+
+        if (column.property === 'communicator') {
+          const statuses = data.map((item) => item[column.property]);
+          const normal = statuses.filter((status) => status === 'N').length;
+          const communicator = statuses.filter((status) => status === 'Y').length;
+
+          sums[index] = normal + ' / ' + communicator;
+        }
+      });
+
+      return sums;
     },
     queryPersonSuggestions(query, callback) {
       callback(

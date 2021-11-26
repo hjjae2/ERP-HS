@@ -1,8 +1,5 @@
 <template>
-  <el-container
-    direction="vertical"
-    style="width: 100%; height: 100%; padding: 0% 5%"
-  >
+  <el-container direction="vertical" style="width: 100%; height: 100%; padding: 0% 5%">
     <common-header />
     <br />
     <nuxt />
@@ -11,14 +8,14 @@
 </template>
 
 <script>
-import CommonHeader from '~/layouts/header.vue'
-import CommonFooter from '~/layouts/footer.vue'
+import CommonHeader from '~/layouts/header.vue';
+import CommonFooter from '~/layouts/footer.vue';
 export default {
   components: {
     CommonHeader,
     CommonFooter,
   },
-}
+};
 </script>
 
 <style scoped>
