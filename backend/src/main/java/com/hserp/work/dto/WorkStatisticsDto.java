@@ -8,7 +8,9 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class WorkStatisticsDto {
 
@@ -41,6 +43,10 @@ public class WorkStatisticsDto {
         @Getter
         public static class RequestDto {
             List<String> months;
+
+            public static RequestDto of(String[] months) {
+                return RequestDto.builder().months(Arrays.stream(months).collect(Collectors.toList())).build();
+            }
 
             public LocalDate stringToLocalDate(String monthAsString) {
                 return LocalDate.parse(String.format("%s-%s", monthAsString, "01"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
