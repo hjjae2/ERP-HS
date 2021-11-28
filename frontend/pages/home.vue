@@ -6,23 +6,23 @@
       </div>
       <el-row :gutter="20" type="flex" align="middle" justify="center">
         <el-col :span="12">
-          <div id="monthlyPriceSummary" class="monthlyPriceSummary" style="width: 100%; height: 300px"></div>
+          <div id="monthlySummary" class="monthlySummary" style="width: 100%; height: 300px"></div>
         </el-col>
         <el-col :span="12">
           <el-card
             shadow="never"
             style="border-radius: 10px; background-color: #1f3bb3; color: white; opacity: 0.9"
           >
-            <div slot="header" class="clearfix">
+            <div slot="header" class="clearfix" style="text-align: center">
               <strong>{{ new Date().getMonth() + 1 }}월 작업 요약</strong>
             </div>
-            <div style="padding: 14px">
+            <div style="padding: 14px; text-align: center">
               <strong>총 작업 건수</strong>
               <div>
                 <strong>{{ workStatisticsOfThisMonth.totalNumberOfWorks.toLocaleString() }} 건</strong>
               </div>
             </div>
-            <div style="padding: 14px">
+            <div style="padding: 14px; text-align: center">
               <strong>총 매출</strong>
               <div>
                 <strong>{{ workStatisticsOfThisMonth.totalSummationOfPrices.toLocaleString() }} 원</strong>
@@ -39,234 +39,82 @@
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themesAnimated from '@amcharts/amcharts5/themes/Animated';
+import WorkStatisticsAPI from '~/api/workStatistics';
+
+const workStatisticsAPI = new WorkStatisticsAPI();
 
 export default {
   data() {
     return {
+      // About data
       workStatisticsOfThisMonth: {
-        totalSummationOfPrices: 1086500,
-        totalNumberOfWorks: 10,
-        works: [
-          {
-            id: 5,
-            workDate: '2021-11-14',
-            workType: '일반',
-            worker: '이현재',
-            company: '화성스카이차',
-            customer: '김포공항',
-            dispatcher: null,
-            address: '경기도 수원시 권선구 평동 106 801',
-            content: null,
-            remark: '비고!',
-            paymentStatus: '완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급완료',
-            price: 10500,
-            communicator: 'N',
-          },
-          {
-            id: 6,
-            workDate: '2021-11-14',
-            workType: '일반',
-            worker: '이현재',
-            company: '화성스카이차',
-            customer: '김포공항',
-            dispatcher: null,
-            address: '경기도 수원시 권선구 평동 106 801',
-            content: null,
-            remark: '비고!',
-            paymentStatus: '완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 10500,
-            communicator: 'N',
-          },
-          {
-            id: 7,
-            workDate: '2021-11-14',
-            workType: '일반',
-            worker: '이현재',
-            company: '화성스카이차',
-            customer: '김포공항',
-            dispatcher: null,
-            address: '경기도 수원시 권선구 평동 106 801',
-            content: '비고!',
-            remark: '비고!',
-            paymentStatus: '완료',
-            expenditureStatus: '완료',
-            taxStatus: '발급미완료',
-            price: 10500,
-            communicator: 'Y',
-          },
-          {
-            id: 8,
-            workDate: '2021-11-28',
-            workType: '일반',
-            worker: '이현재',
-            company: '화성스카이차',
-            customer: '김포공항',
-            dispatcher: '김리리',
-            address: '경기도 수원시 권선구 평동 106 801',
-            content: '콘텐츠!!!',
-            remark: '비고!',
-            paymentStatus: '완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 1050000,
-            communicator: 'N',
-          },
-          {
-            id: 10,
-            workDate: '2021-11-26',
-            workType: '일반',
-            worker: null,
-            company: '화성스카이차',
-            customer: '화성스카이차',
-            dispatcher: null,
-            address: '',
-            content: '',
-            remark: '',
-            paymentStatus: '부분완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 5000,
-            communicator: 'N',
-          },
-          {
-            id: 11,
-            workDate: '2021-11-26',
-            workType: '일반',
-            worker: null,
-            company: '화성스카이차',
-            customer: '화성스카이',
-            dispatcher: '이현재',
-            address: '',
-            content: '',
-            remark: '',
-            paymentStatus: '완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 0,
-            communicator: 'N',
-          },
-          {
-            id: 16,
-            workDate: '2021-11-26',
-            workType: '일반',
-            worker: null,
-            company: '화성스카이',
-            customer: null,
-            dispatcher: null,
-            address: '',
-            content: '',
-            remark: '',
-            paymentStatus: '미완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 0,
-            communicator: 'N',
-          },
-          {
-            id: 17,
-            workDate: '2021-11-26',
-            workType: '일반',
-            worker: null,
-            company: '화성스카이',
-            customer: null,
-            dispatcher: null,
-            address: '',
-            content: '',
-            remark: '',
-            paymentStatus: '미완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 0,
-            communicator: 'N',
-          },
-          {
-            id: 18,
-            workDate: '2021-11-26',
-            workType: '일반',
-            worker: null,
-            company: null,
-            customer: null,
-            dispatcher: null,
-            address: '',
-            content: '',
-            remark: '',
-            paymentStatus: '미완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 0,
-            communicator: 'N',
-          },
-          {
-            id: 19,
-            workDate: '2021-11-26',
-            workType: '지출',
-            worker: null,
-            company: null,
-            customer: null,
-            dispatcher: null,
-            address: '',
-            content: '',
-            remark: '',
-            paymentStatus: '미완료',
-            expenditureStatus: '미완료',
-            taxStatus: '발급미완료',
-            price: 0,
-            communicator: 'N',
-          },
-        ],
+        totalSummationOfPrices: 0,
+        totalNumberOfWorks: 0,
+        works: [],
       },
-      workStatisticsOfMonthlyPrice: [
+      workStatisticsOfMonthly: [
         {
-          month: '2021-05',
-          totalSummationOfPrices: 500000,
-          totalNumberOfWorks: 5,
+          month: '',
+          totalSummationOfPrices: 0,
+          totalNumberOfWorks: 0,
         },
-        {
-          month: '2021-06',
-          totalSummationOfPrices: 500000,
-          totalNumberOfWorks: 5,
-        },
-        {
-          month: '2021-07',
-          totalSummationOfPrices: 500000,
-          totalNumberOfWorks: 5,
-        },
-        {
-          month: '2021-09',
-          totalSummationOfPrices: 101000,
-          totalNumberOfWorks: 7,
-        },
-        {
-          month: '2021-10',
-          totalSummationOfPrices: 70000,
-          totalNumberOfWorks: 8,
-        },
-        {
-          month: '2021-11',
-          totalSummationOfPrices: 1086500,
-          totalNumberOfWorks: 10,
-          columnSettings: {
+      ],
+
+      // About flag
+      isError: false,
+    };
+  },
+  async mounted() {
+    await this.initData();
+    this.showWorkStatisticsOfMonthly();
+  },
+  methods: {
+    async initData() {
+      await this.initWorkStatisticsOfThisMonth();
+      await this.initWorkStatisticsOfMonthly(this.getLast5Months());
+    },
+    async initWorkStatisticsOfThisMonth() {
+      try {
+        const response = await workStatisticsAPI.getWorkStatisticsOfThisMonth();
+        this.workStatisticsOfThisMonth = response.data.data;
+      } catch (error) {
+        this.occurError('데이터 조회 중 오류가 발생하였습니다.');
+      }
+    },
+    async initWorkStatisticsOfMonthly(months) {
+      /**
+       * columnSettings: {
             strokeWidth: 1,
             strokeDasharray: [5],
             fillOpacity: 0.2,
           },
           info: '(진행중)',
-        },
-      ],
-    };
-  },
-  mounted() {
-    this.showWorkStatisticsOfThisMonth();
-    this.showWorkStatisticsOfMonthlyPrice();
-  },
-  methods: {
-    showWorkStatisticsOfThisMonth() {},
-    showWorkStatisticsOfMonthlyPrice() {
-      const root = am5.Root.new('monthlyPriceSummary');
+       */
+      try {
+        const thisMonth = this.getThisMonth();
+        this.workStatisticsOfMonthly.month = thisMonth;
+        const payload = {
+          months,
+        };
+        const response = await workStatisticsAPI.getWorkStatisticsOfMonthly(payload);
+        this.workStatisticsOfMonthly = response.data.data;
+
+        this.workStatisticsOfMonthly.forEach((value) => {
+          if (value.month === thisMonth) {
+            value.columnSettings = {
+              strokeWidth: 1,
+              strokeDasharray: [5],
+              fillOpacity: 0.2,
+            };
+            value.info = '(진행중)';
+          }
+        });
+      } catch (error) {
+        this.occurError('데이터 조회 중 오류가 발생하였습니다.');
+      }
+    },
+    showWorkStatisticsOfMonthly() {
+      const root = am5.Root.new('monthlySummary');
       root.setThemes([am5themesAnimated.new(root)]);
 
       const chart = root.container.children.push(
@@ -279,6 +127,7 @@ export default {
         })
       );
       chart.set('cursor', am5xy.XYCursor.new(root, {}));
+      chart.get('colors').set('step', 2);
       chart.appear(1000, 10);
 
       const legend = chart.children.push(
@@ -289,26 +138,33 @@ export default {
       );
       legend.data.setAll(chart.series.values);
 
-      const yAxis = chart.yAxes.push(
+      const priceAxis = chart.yAxes.push(
         am5xy.ValueAxis.new(root, {
-          logarithmic: true,
+          min: 0,
           renderer: am5xy.AxisRendererY.new(root, {}),
+        })
+      );
+      const countAxis = chart.yAxes.push(
+        am5xy.ValueAxis.new(root, {
+          min: 0,
+          renderer: am5xy.AxisRendererY.new(root, { opposite: true }),
         })
       );
       const xAxis = chart.xAxes.push(
         am5xy.CategoryAxis.new(root, {
           renderer: am5xy.AxisRendererX.new(root, {}),
           categoryField: 'month',
+          tooltip: am5.Tooltip.new(root, {}),
         })
       );
 
       const priceSeries = chart.series.push(
-        this.getColumnSeries(root, xAxis, yAxis, '매출', 'totalSummationOfPrices', 'month', {
+        this.getColumnSeries(root, xAxis, priceAxis, '매출', 'totalSummationOfPrices', 'month', {
           labelText: '{name} : {valueY} 원 {info}',
         })
       );
       const countSeries = chart.series.push(
-        this.getLineSeries(root, xAxis, yAxis, '작업 건수', 'totalNumberOfWorks', 'month', {
+        this.getLineSeries(root, xAxis, countAxis, '작업 건수', 'totalNumberOfWorks', 'month', {
           labelText: '{name} : {valueY} 건 {info}',
         })
       );
@@ -335,9 +191,9 @@ export default {
         });
       });
 
-      priceSeries.data.setAll(this.workStatisticsOfMonthlyPrice);
-      countSeries.data.setAll(this.workStatisticsOfMonthlyPrice);
-      xAxis.data.setAll(this.workStatisticsOfMonthlyPrice);
+      priceSeries.data.setAll(this.workStatisticsOfMonthly);
+      countSeries.data.setAll(this.workStatisticsOfMonthly);
+      xAxis.data.setAll(this.workStatisticsOfMonthly);
     },
     getColumnSeries(root, xAxis, yAxis, name, valueYField, categoryXField, options) {
       const labelText = options.labelText ? options.labelText : '{valueY}';
@@ -373,6 +229,40 @@ export default {
           pointerOrientation,
           labelText,
         }),
+      });
+    },
+    getMonthAsYYYYMM(year, month) {
+      return `${year}-${month >= 10 ? month : '0' + month}`;
+    },
+    getThisMonth() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+
+      return this.getMonthAsYYYYMM(year, month);
+    },
+    getLast5Months() {
+      const now = new Date();
+      const thisYear = now.getFullYear();
+      const thisMonth = now.getMonth();
+
+      const last5Months = [];
+      for (let i = 5; i >= 0; i--) {
+        const date = new Date(thisYear, thisMonth - i, 1);
+        last5Months.push(this.getMonthAsYYYYMM(date.getFullYear(), date.getMonth() + 1));
+      }
+
+      return last5Months;
+    },
+    occurError(message) {
+      this.isError = true;
+      this.errorMessage(message);
+    },
+    errorMessage(message) {
+      this.$message({
+        showClose: true,
+        message,
+        type: 'error',
       });
     },
   },
